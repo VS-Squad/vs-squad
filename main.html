@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - EDU Connect</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4a6bff;
+            --secondary: #ff6b6b;
+            --dark: #2c3e50;
+            --light: #f8f9fa;
+            --success: #28a745;
+            --warning: #ffc107;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7ff;
+            color: var(--dark);
+        }
+        
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo img {
+            height: 30px;
+            width: auto;
+        }
+        
+        .logo h1 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--dark);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s;
+            font-size: 0.9rem;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        .auth-buttons {
+            display: flex;
+            gap: 0.8rem;
+        }
+        
+        .btn {
+            padding: 0.4rem 1rem;
+            border-radius: 5px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+            font-size: 0.9rem;
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #3a5bef;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 5%;
+        }
+        
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+        
+        .welcome-message h2 {
+            font-size: 1.8rem;
+            color: var(--dark);
+        }
+        
+        .welcome-message p {
+            color: #666;
+        }
+        
+        .stats-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .stat-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .stat-card h3 {
+            font-size: 1rem;
+            color: #666;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-card .value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .progress-container {
+            margin-top: 0.5rem;
+            height: 8px;
+            background-color: #e8ecff;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background-color: var(--primary);
+            border-radius: 4px;
+        }
+        
+        .section-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .section-title h3 {
+            font-size: 1.5rem;
+            color: var(--dark);
+        }
+        
+        .section-title a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .card-img {
+            height: 160px;
+            background-color: #eee;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .card-body {
+            padding: 1.5rem;
+        }
+        
+        .card-tag {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background-color: #e8ecff;
+            color: var(--primary);
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+        
+        .card-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+        
+        .card-text {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+        
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1rem;
+            border-top: 1px solid #eee;
+        }
+        
+        .deadline {
+            font-size: 0.8rem;
+            color: #ff6b6b;
+            font-weight: 500;
+        }
+        
+        .btn-sm {
+            padding: 0.3rem 0.8rem;
+            font-size: 0.8rem;
+        }
+        
+        .profile-img {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            object-fit: cover;
+            cursor: pointer;
+            border: 2px solid var(--primary);
+            transition: transform 0.3s;
+        }
+        
+        .profile-img:hover {
+            transform: scale(1.1);
+        }
+        
+        .profile-dropdown {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 100%;
+            background: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            min-width: 150px;
+            z-index: 1000;
+        }
+        
+        .profile-dropdown a {
+            display: block;
+            padding: 0.5rem 1rem;
+            color: var(--dark);
+            text-decoration: none;
+        }
+        
+        .profile-dropdown a:hover {
+            background-color: #f5f5f5;
+        }
+        
+        #userProfile:hover .profile-dropdown {
+            display: block;
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 3rem 5%;
+            margin-top: 3rem;
+        }
+        
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+        
+        .footer-column h4 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .footer-column h4::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--primary);
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-column ul li a {
+            color: #bbb;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-column ul li a:hover {
+            color: white;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            transition: all 0.3s;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #bbb;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 0.8rem 5%;
+            }
+            
+            .nav-links {
+                gap: 1rem;
+            }
+            
+            .dashboard-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            
+            .stats-cards {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="navbar">
+            <div class="logo">
+                <img src="educonnect.jpg" alt="EDU Connect Logo">
+                <h1>EDU Connect</h1>
+            </div>
+            <div class="nav-links">
+                <a href="main.html">Home</a>
+                <a href="#scholarships">Scholarships</a>
+                <a href="#courses">Courses</a>
+                <a href="#competitions">Competitions</a>
+                <a href="#resources">Resources</a>
+            </div>
+            <div class="auth-buttons">
+                <div id="userProfile" style="display: none; position: relative;">
+                    <img id="profileImage" src="profile.jpg" alt="profile" class="profile-img">
+                    <div id="profileDropdown" class="profile-dropdown">
+                        <a href="#">My Profile</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="dashboard-header">
+            <div class="welcome-message">
+                <h2>Welcome back, <span id="userName">User</span>!</h2>
+                <p>Here's what's happening with your account today.</p>
+            </div>
+            
+        </div>
+        
+        <div class="stats-cards">
+            <div class="stat-card">
+                <h3>Your Level</h3>
+                <div class="value" id="userLevel">1</div>
+                <div class="progress-container">
+                    <div class="progress-bar" id="levelProgress" style="width: 30%"></div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <h3>EduPoints</h3>
+                <div class="value" id="eduPoints">100</div>
+                <div class="progress-container">
+                    <div class="progress-bar" style="width: 10%"></div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <h3>Applications Submitted</h3>
+                <div class="value" id="applications">0</div>
+                <div class="progress-container">
+                    <div class="progress-bar" style="width: 0%"></div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <h3>Courses Completed</h3>
+                <div class="value" id="coursesCompleted">0</div>
+                <div class="progress-container">
+                    <div class="progress-bar" style="width: 0%"></div>
+                </div>
+            </div>
+        </div>
+        
+        <section id="recommended-scholarships">
+            <div class="section-title">
+                <h3>Recommended Scholarships</h3>
+                <a href="#">View All</a>
+            </div>
+            <div class="cards-container">
+                <div class="card">
+                    <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60');"></div>
+                    <div class="card-body">
+                        <span class="card-tag">STEM • Undergraduate</span>
+                        <h3 class="card-title">National Science Foundation Scholarship</h3>
+                        <p class="card-text">Based on your profile, you have a 85% match with this scholarship opportunity.</p>
+                        <div class="card-footer">
+                            <span class="deadline">Deadline: June 15, 2023</span>
+                            <button class="btn btn-primary btn-sm apply-btn" data-id="1">Apply Now</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60');"></div>
+                    <div class="card-body">
+                        <span class="card-tag">Business • Graduate</span>
+                        <h3 class="card-title">Global Business Leaders Fellowship</h3>
+                        <p class="card-text">72% match with your academic background and career goals.</p>
+                        <div class="card-footer">
+                            <span class="deadline">Deadline: April 30, 2023</span>
+                            <button class="btn btn-primary btn-sm apply-btn" data-id="2">Apply Now</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60');"></div>
+                    <div class="card-body">
+                        <span class="card-tag">Arts • All Levels</span>
+                        <h3 class="card-title">Creative Minds Art Scholarship</h3>
+                        <p class="card-text">65% match - you've shown interest in similar opportunities before.</p>
+                        <div class="card-footer">
+                            <span class="deadline">Deadline: Rolling</span>
+                            <button class="btn btn-primary btn-sm apply-btn" data-id="3">Apply Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="in-progress-courses">
+            <div class="section-title">
+                <h3>Courses In Progress</h3>
+                <a href="#">View All</a>
+            </div>
+            <div class="cards-container">
+                <div class="card">
+                    <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60');"></div>
+                    <div class="card-body">
+                        <span class="card-tag">Computer Science</span>
+                        <h3 class="card-title">Machine Learning Fundamentals</h3>
+                        <p class="card-text">You've completed 3 of 8 modules (38%)</p>
+                        <div class="card-footer">
+                            <div class="progress-container" style="width: 100%; margin: 0;">
+                                <div class="progress-bar" style="width: 38%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60');"></div>
+                    <div class="card-body">
+                        <span class="card-tag">Business</span>
+                        <h3 class="card-title">Entrepreneurship 101</h3>
+                        <p class="card-text">You've completed 1 of 6 modules (17%)</p>
+                        <div class="card-footer">
+                            <div class="progress-container" style="width: 100%; margin: 0;">
+                                <div class="progress-bar" style="width: 17%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h4>EDU Connect</h4>
+                <p>Connecting students with scholarships, courses, and competitions to help them achieve their academic and career goals.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="main.html">Home</a></li>
+                    <li><a href="#scholarships">Scholarships</a></li>
+                    <li><a href="#courses">Courses</a></li>
+                    <li><a href="#competitions">Competitions</a></li>
+                    <li><a href="#resources">Resources</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="#">FAQs</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Newsletter</h4>
+                <p>Subscribe to get updates on new opportunities.</p>
+                <div style="display: flex; background: transparent;">
+                    <input type="email" placeholder="Your email address" style="flex: 1; padding: 0.8rem; border: 1px solid #ddd; border-radius: 5px 0 0 5px;">
+                    <button style="padding: 0 1.5rem; background-color: var(--primary); color: white; border: none; border-radius: 0 5px 5px 0; cursor: pointer;"><i class="fas fa-paper-plane"></i></button>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            &copy; 2023 EDU Connect. All rights reserved.
+        </div>
+    </footer>
+    
+    <script type="module">
+        import { auth, db } from './firebase-config.js';
+        import { onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/11.5.0/firebase-auth.js';
+        import { doc, getDoc } from 'https://www.gstatic.com/firebasejs/11.5.0/firebase-firestore.js';
+        import { logout } from './auth.js'; // Import the logout function
+        
+        // Check authentication state
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                // User is signed in
+                document.getElementById('userProfile').style.display = 'block';
+                document.getElementById('profileImage').src = user.photoURL || 'default-profile.webp';
+                
+                // Get user data from Firestore
+                const userRef = doc(db, "users", user.uid);
+                const userDoc = await getDoc(userRef);
+                
+                if (userDoc.exists()) {
+                    const userData = userDoc.data();
+                    
+                    // Update UI with user data
+                    document.getElementById('userName').textContent = userData.fullname || 'User';
+                    document.getElementById('userLevel').textContent = userData.level || 1;
+                    document.getElementById('eduPoints').textContent = userData.eduPoints || 100;
+                    document.getElementById('applications').textContent = userData.applications?.length || 0;
+                    document.getElementById('coursesCompleted').textContent = userData.completedCourses?.length || 0;
+                    
+                    // Calculate level progress (example: 30% to next level)
+                    document.getElementById('levelProgress').style.width = '30%';
+                }
+            } else {
+                // User is signed out, redirect to login
+                window.location.href = 'login.html';
+            }
+        });
+        
+        // Logout functionality - use the imported logout function
+        document.getElementById('logoutBtn').addEventListener('click', async (e) => {
+            e.preventDefault();
+            await logout();
+        });
+    </script>
+</body>
+</html>

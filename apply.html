@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scholarship Application Form</title>
+  <style>
+    :root {
+      --primary: #4a6bff;
+      --secondary: #ff6b6b;
+      --dark: #2c3e50;
+      --light: #f8f9fa;
+      --success: #28a745;
+      --warning: #ffc107;
+      --border: #ddd;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    body {
+      background-color: #f5f7ff;
+      color: var(--dark);
+      line-height: 1.6;
+    }
+    
+    header {
+      background-color: white;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      padding: 1.5rem 0;
+      text-align: center;
+    }
+    
+    header h1 {
+      color: var(--primary);
+      font-size: 1.8rem;
+    }
+    
+    main {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 0 1.5rem;
+    }
+    
+    form {
+      background-color: white;
+      border-radius: 10px;
+      padding: 2rem;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    }
+    
+    h2 {
+      color: var(--primary);
+      margin: 1.5rem 0 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border);
+      font-size: 1.3rem;
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+      color: var(--dark);
+    }
+    
+    input, select, textarea {
+      width: 100%;
+      padding: 0.8rem;
+      margin-bottom: 1.2rem;
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      font-size: 1rem;
+      transition: border-color 0.3s;
+    }
+    
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+    
+    input[type="file"] {
+      padding: 0.5rem;
+    }
+    
+    button {
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      padding: 0.8rem 1.5rem;
+      font-size: 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      font-weight: 500;
+      margin-top: 1rem;
+      width: 100%;
+    }
+    
+    button:hover {
+      background-color: #3a5bef;
+    }
+    
+    #formMessage {
+      margin-top: 1rem;
+      padding: 0.8rem;
+      border-radius: 5px;
+      display: none;
+    }
+    
+    .success {
+      background-color: rgba(40, 167, 69, 0.2);
+      color: var(--success);
+      display: block;
+    }
+    
+    .error {
+      background-color: rgba(220, 53, 69, 0.2);
+      color: #dc3545;
+      display: block;
+    }
+    
+    .document-group {
+      margin-bottom: 1.2rem;
+      padding: 1rem;
+      background-color: #f8f9fa;
+      border-radius: 5px;
+    }
+    
+    .required::after {
+      content: " *";
+      color: var(--secondary);
+    }
+    
+    @media (max-width: 600px) {
+      form {
+        padding: 1.5rem;
+      }
+      
+      h2 {
+        font-size: 1.2rem;
+      }
+    }
+    .checkbox-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 1rem 0;
+}
+
+.checkbox-group input[type="checkbox"] {
+  width: auto;
+  margin: 0;
+}
+
+.checkbox-group label {
+  margin: 0;
+  font-weight: normal;
+  display: inline;
+}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Scholarship Application Form</h1>
+  </header>
+  <main>
+    <form id="applicationForm" aria-label="Scholarship Application Form">
+      <h2>Personal Information</h2>
+      <label for="fullName" class="required">Full Name:</label>
+      <input type="text" id="fullName" name="fullName" required aria-required="true">
+      
+      <label for="email" class="required">Email:</label>
+      <input type="email" id="email" name="email" required aria-required="true" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
+      
+      <label for="phone" class="required">Phone Number:</label>
+      <input type="tel" id="phone" name="phone" required aria-required="true" pattern="[0-9]{10}" placeholder="1234567890">
+      
+      <label for="dob">Date of Birth:</label>
+      <input type="date" id="dob" name="dob" max="2005-12-31">
+      
+      <label for="address">Address:</label>
+      <textarea id="address" name="address" rows="3"></textarea>
+      
+      <h2>Academic Information</h2>
+      <label for="currentSchool" class="required">Current School/University:</label>
+      <input type="text" id="currentSchool" name="currentSchool" required aria-required="true">
+      
+      <label for="gpa" class="required">Current GPA:</label>
+      <input type="number" id="gpa" name="gpa" min="0" max="4" step="0.01" required aria-required="true">
+      
+      <label for="major">Intended Major/Field of Study:</label>
+      <input type="text" id="major" name="major">
+      
+      <h2>Scholarship Selection</h2>
+      <label for="scholarshipType" class="required">Select Scholarship:</label>
+      <select id="scholarshipType" name="scholarshipType" required aria-required="true" onchange="updateDocuments()">
+        <option value="">-- Select --</option>
+        <option value="merit">Merit-Based Scholarship</option>
+        <option value="need">Need-Based Scholarship</option>
+        <option value="sports">Sports Scholarship</option>
+        <option value="artistic">Artistic Scholarship</option>
+        <option value="stem">STEM Scholarship</option>
+        <option value="community">Community Service Scholarship</option>
+      </select>
+      
+      <h2>Documents Upload</h2>
+      <div id="documentFields">
+        <!-- Dynamic fields will be inserted here via JavaScript -->
+      </div>
+      
+      <div class="checkbox-group">
+        <input type="checkbox" id="certify" name="certify" required>
+        <label for="certify" class="required">I certify that all information provided is accurate and complete.</label>
+      </div>
+      
+      <button type="submit">Submit Application</button>
+      <p id="formMessage" aria-live="polite"></p>
+    </form>
+  </main>
+  
+  <script>
+    // Scholarship document requirements
+    const documentRequirements = {
+      merit: [
+        { name: "transcript", label: "Official Transcript", required: true },
+        { name: "recommendation", label: "Letters of Recommendation (2)", required: true },
+        { name: "testScores", label: "Standardized Test Scores", required: false }
+      ],
+      need: [
+        { name: "transcript", label: "Official Transcript", required: true },
+        { name: "taxForms", label: "Family Tax Forms", required: true }
+      ],
+      sports: [
+        { name: "transcript", label: "Official Transcript", required: true },
+        { name: "coachLetter", label: "Coach Recommendation Letter", required: true },
+        { name: "stats", label: "Athletic Statistics", required: true },
+        { name: "video", label: "Highlight Video", required: false }
+      ],
+      artistic: [
+        { name: "transcript", label: "Official Transcript", required: true },
+        { name: "portfolio", label: "Art Portfolio", required: true }
+      ],
+      stem: [
+        { name: "transcript", label: "Official Transcript", required: true },
+        { name: "researchPaper", label: "Research Paper/Project", required: false }
+      ],
+      community: [
+        { name: "transcript", label: "Official Transcript", required: true },
+        { name: "serviceLog", label: "Community Service Log", required: true },
+        { name: "supervisorLetter", label: "Supervisor Recommendation", required: true }
+      ]
+    };
+    
+    // Save form data to localStorage
+    function saveFormData() {
+      const form = document.getElementById('applicationForm');
+      const formData = {};
+      
+      // Save all input values except files (localStorage can't store files)
+      Array.from(form.elements).forEach(element => {
+        if (element.name && element.type !== 'file') {
+          formData[element.name] = element.value;
+        }
+      });
+      
+      // Save the selected scholarship type separately
+      formData.scholarshipType = document.getElementById('scholarshipType').value;
+      
+      localStorage.setItem('scholarshipFormData', JSON.stringify(formData));
+    }
+    
+    // Load saved form data from localStorage
+    function loadFormData() {
+      const savedData = localStorage.getItem('scholarshipFormData');
+      if (savedData) {
+        const formData = JSON.parse(savedData);
+        
+        // Restore all input values
+        Object.keys(formData).forEach(key => {
+          const element = document.querySelector(`[name="${key}"]`);
+          if (element && formData[key] !== null) {
+            element.value = formData[key];
+          }
+        });
+        
+        // Restore scholarship type and update documents
+        if (formData.scholarshipType) {
+          document.getElementById('scholarshipType').value = formData.scholarshipType;
+          updateDocuments();
+        }
+      }
+    }
+    
+    // Clear form data from localStorage
+    function clearFormData() {
+      localStorage.removeItem('scholarshipFormData');
+    }
+    
+    // Update document fields based on scholarship selection
+    function updateDocuments() {
+      const scholarshipType = document.getElementById('scholarshipType').value;
+      const documentFields = document.getElementById('documentFields');
+      
+      // Clear previous fields
+      documentFields.innerHTML = '';
+      
+      // Add new fields based on selection
+      if (scholarshipType && documentRequirements[scholarshipType]) {
+        documentRequirements[scholarshipType].forEach(doc => {
+          const docGroup = document.createElement('div');
+          docGroup.className = 'document-group';
+          
+          const label = document.createElement('label');
+          label.htmlFor = doc.name;
+          label.textContent = doc.label;
+          if (doc.required) {
+            label.className = 'required';
+          }
+          
+          const input = document.createElement('input');
+          input.type = 'file';
+          input.id = doc.name;
+          input.name = doc.name;
+          input.required = doc.required;
+          if (doc.required) {
+            input.setAttribute('aria-required', 'true');
+          }
+          
+          // Add accepted file types based on document type
+          if (doc.name === 'transcript' || doc.name === 'taxForms' || doc.name === 'researchPaper') {
+            input.accept = '.pdf,.doc,.docx';
+          } else if (doc.name === 'portfolio') {
+            input.accept = '.pdf,.jpg,.jpeg,.png,.zip';
+          } else if (doc.name === 'video') {
+            input.accept = '.mp4,.mov,.avi';
+          } else {
+            input.accept = '.pdf,.doc,.docx,.jpg,.jpeg,.png';
+          }
+          
+          docGroup.appendChild(label);
+          docGroup.appendChild(input);
+          documentFields.appendChild(docGroup);
+        });
+      }
+      
+      // Save the form data after updating documents
+      saveFormData();
+    }
+    
+    // Form submission handler
+    document.getElementById('applicationForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const formMessage = document.getElementById('formMessage');
+      
+      // Simulate form processing
+      formMessage.textContent = 'Submitting your application...';
+      formMessage.className = '';
+      formMessage.style.display = 'block';
+      
+      // In a real application, you would send the data to a server here
+      setTimeout(() => {
+        formMessage.textContent = 'Application submitted successfully! We will contact you within 2-3 weeks.';
+        formMessage.className = 'success';
+        
+        // Reset form after successful submission
+        setTimeout(() => {
+          this.reset();
+          document.getElementById('documentFields').innerHTML = '';
+          formMessage.style.display = 'none';
+          clearFormData(); // Clear saved data after successful submission
+        }, 3000);
+      }, 2000);
+    });
+    
+    // Initialize form
+    document.addEventListener('DOMContentLoaded', function() {
+      // Load any saved form data
+      loadFormData();
+      
+      // Add event listeners to save form data as user types
+      const form = document.getElementById('applicationForm');
+      Array.from(form.elements).forEach(element => {
+        if (element.name && element.type !== 'file') {
+          element.addEventListener('input', saveFormData);
+          element.addEventListener('change', saveFormData);
+        }
+      });
+      
+      // Add real-time validation for email
+      document.getElementById('email').addEventListener('input', function() {
+        if (this.validity.typeMismatch) {
+          this.setCustomValidity('Please enter a valid email address');
+        } else {
+          this.setCustomValidity('');
+        }
+        saveFormData();
+      });
+      
+      // Add real-time validation for phone
+      document.getElementById('phone').addEventListener('input', function() {
+        if (this.validity.patternMismatch) {
+          this.setCustomValidity('Please enter a 10-digit phone number');
+        } else {
+          this.setCustomValidity('');
+        }
+        saveFormData();
+      });
+      
+      // Add real-time validation for GPA
+      document.getElementById('gpa').addEventListener('input', function() {
+        if (this.validity.rangeUnderflow || this.validity.rangeOverflow) {
+          this.setCustomValidity('GPA must be between 0 and 4');
+        } else {
+          this.setCustomValidity('');
+        }
+        saveFormData();
+      });
+    });
+  </script>
+</body>
+</html>

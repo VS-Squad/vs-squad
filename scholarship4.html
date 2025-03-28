@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Artistic Scholarship</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #9c27b0;
+      --secondary: #ff6b6b;
+      --dark: #2c3e50;
+      --light: #f8f9fa;
+      --success: #28a745;
+      --border: #e0e0e0;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    body {
+      background-color: #faf5fb;
+      color: var(--dark);
+      line-height: 1.6;
+    }
+    
+    header {
+      background-color: white;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      padding: 2rem 0;
+      text-align: center;
+      background: linear-gradient(135deg, var(--primary) 0%, #7b1fa2 100%);
+      color: white;
+    }
+    
+    header h1 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    main {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 0 1.5rem;
+    }
+    
+    .scholarship-container {
+      background-color: white;
+      border-radius: 10px;
+      padding: 2rem;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    }
+    
+    .scholarship-intro {
+      font-size: 1.1rem;
+      margin-bottom: 1.5rem;
+      color: #444;
+    }
+    
+    h2 {
+      color: var(--primary);
+      margin: 1.5rem 0 1rem;
+      font-size: 1.5rem;
+      border-bottom: 2px solid var(--border);
+      padding-bottom: 0.5rem;
+    }
+    
+    ul {
+      list-style-position: inside;
+      margin-bottom: 1.5rem;
+    }
+    
+    ul li {
+      margin-bottom: 0.5rem;
+      padding-left: 0.5rem;
+    }
+    
+    .deadline {
+      font-size: 1.1rem;
+      margin-bottom: 1.5rem;
+      font-weight: 500;
+      color: var(--dark);
+    }
+    
+    .deadline-date {
+      color: var(--secondary);
+      font-weight: 600;
+    }
+    
+    .btn-apply {
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      padding: 0.8rem 1.5rem;
+      font-size: 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-weight: 500;
+      margin-top: 1rem;
+      display: inline-block;
+      text-decoration: none;
+      text-align: center;
+    }
+    
+    .btn-apply:hover {
+      background-color: #7b1fa2;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    .back-link {
+      display: inline-block;
+      margin-top: 1.5rem;
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+    
+    .back-link:hover {
+      color: #7b1fa2;
+      text-decoration: underline;
+    }
+    
+    .benefits {
+      background-color: #f3e5f5;
+      padding: 1.5rem;
+      border-radius: 8px;
+      margin: 1.5rem 0;
+    }
+    
+    .benefits h3 {
+      color: var(--primary);
+      margin-bottom: 1rem;
+    }
+    
+    .benefits-list {
+      columns: 2;
+      list-style-type: none;
+    }
+    
+    .benefits-list li {
+      position: relative;
+      padding-left: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .benefits-list li::before {
+      content: "🎨";
+      position: absolute;
+      left: 0;
+    }
+    
+    .art-categories {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 1rem 0;
+    }
+    
+    .art-category {
+      background-color: #f3e5f5;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      color: var(--primary);
+    }
+    
+    @media (max-width: 768px) {
+      .benefits-list {
+        columns: 1;
+      }
+      
+      header h1 {
+        font-size: 1.8rem;
+      }
+      
+      h2 {
+        font-size: 1.3rem;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .scholarship-container {
+        padding: 1.5rem;
+      }
+      
+      header {
+        padding: 1.5rem 0;
+      }
+      
+      header h1 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Artistic Scholarship</h1>
+    <p>Celebrating creativity and artistic excellence</p>
+  </header>
+  <main>
+    <div class="scholarship-container">
+      <p class="scholarship-intro">This prestigious scholarship recognizes and supports students who demonstrate exceptional talent and potential in the visual, performing, or literary arts.</p>
+      
+      <div class="art-categories">
+        <span class="art-category">Visual Arts</span>
+        <span class="art-category">Music</span>
+        <span class="art-category">Theater</span>
+        <span class="art-category">Dance</span>
+        <span class="art-category">Creative Writing</span>
+        <span class="art-category">Film</span>
+      </div>
+      
+      <h2>Eligibility Criteria</h2>
+      <ul role="list">
+        <li>Must submit a portfolio of original creative work</li>
+        <li>Letter of recommendation from an art instructor or mentor</li>
+        <li>Minimum GPA of 2.5 (artistic merit is primary consideration)</li>
+        <li>Enrolled or accepted in an accredited institution</li>
+        <li>Demonstrated commitment to artistic development</li>
+      </ul>
+      
+      <div class="benefits">
+        <h3>Scholarship Benefits</h3>
+        <ul class="benefits-list">
+          <li>$5,000-$10,000 award</li>
+          <li>Exhibition opportunity</li>
+          <li>Mentorship program</li>
+          <li>Access to masterclasses</li>
+          <li>Artist networking events</li>
+          <li>Featured in our annual showcase</li>
+        </ul>
+      </div>
+      
+      <h2>Last Date of Submission</h2>
+      <p class="deadline">All applications must be received by <span class="deadline-date">September 10, 2025</span> at 11:59 PM EST</p>
+      
+      <h2>Documents Required</h2>
+      <ul role="list">
+        <li><strong>Portfolio:</strong> 5-10 samples of your best work (images, videos, audio files, or writing samples as appropriate)</li>
+        <li><strong>Artist Statement:</strong> 500-1000 words describing your artistic practice and goals</li>
+        <li><strong>Letter of Recommendation:</strong> From an art instructor or professional in your field</li>
+        <li><strong>Academic Transcripts:</strong> Unofficial copies accepted</li>
+        <li><strong>Resume/CV:</strong> Highlighting artistic achievements and exhibitions</li>
+      </ul>
+      
+      <a href="apply.html" class="btn-apply" aria-label="Apply for Artistic Scholarship">Apply Now</a>
+      <a href="#" class="back-link">&larr; Back to all scholarships</a>
+    </div>
+  </main>
+  
+  <script>
+    // Countdown timer for deadline
+    document.addEventListener('DOMContentLoaded', function() {
+      const deadlineDate = new Date('September 10, 2025 23:59:59').getTime();
+      
+      function updateCountdown() {
+        const now = new Date().getTime();
+        const distance = deadlineDate - now;
+        
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        
+        if (distance > 0) {
+          document.querySelector('.deadline-date').innerHTML = 
+            `September 10, 2025 (${days}d ${hours}h ${minutes}m remaining)`;
+        } else {
+          document.querySelector('.deadline-date').innerHTML = 
+            `September 10, 2025 (Application Closed)`;
+          const applyBtn = document.querySelector('.btn-apply');
+          applyBtn.style.pointerEvents = 'none';
+          applyBtn.style.opacity = '0.6';
+          applyBtn.style.cursor = 'not-allowed';
+        }
+      }
+      
+      // Update countdown every minute
+      updateCountdown();
+      setInterval(updateCountdown, 60000);
+    });
+  </script>
+</body>
+</html>

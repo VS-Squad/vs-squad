@@ -1,0 +1,159 @@
+/* General Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8fafc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    color: #333;
+  }
+  
+  /* Container Styles */
+  .container {
+    width: 380px;
+    padding: 2.5rem;
+    background: white;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    border-radius: 12px;
+    text-align: center;
+  }
+  
+  .container h2 {
+    color: #2563eb;
+    margin-bottom: 1.8rem;
+    font-size: 1.8rem;
+    font-weight: 600;
+  }
+  
+  /* Input Styles */
+  input {
+    width: 100%;
+    padding: 0.9rem 1.2rem;
+    margin-bottom: 1rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+  }
+  
+  input:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+  }
+  
+  input::placeholder {
+    color: #94a3b8;
+  }
+  
+  /* Button Styles */
+  button {
+    width: 100%;
+    padding: 0.9rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 0.5rem;
+  }
+  
+  #login-btn, #signup-btn {
+    background-color: #2563eb;
+    color: white;
+  }
+  
+  #login-btn:hover, #signup-btn:hover {
+    background-color: #1d4ed8;
+  }
+  
+  .container > button:not(#login-btn):not(#signup-btn) {
+    background-color: white;
+    color: #2563eb;
+    border: 1px solid #2563eb;
+    margin-top: 1rem;
+  }
+  
+  .container > button:not(#login-btn):not(#signup-btn):hover {
+    background-color: #f8fafc;
+  }
+  
+  /* Link Styles */
+  a {
+    color: #2563eb;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+  
+  a:hover {
+    color: #1d4ed8;
+    text-decoration: underline;
+  }
+  
+  /* Social Icons */
+  .socials {
+    margin: 1.5rem 0;
+  }
+  
+  .socials i {
+    color: #2563eb;
+    background-color: #f8fafc;
+    padding: 0.8rem;
+    border-radius: 50%;
+    margin: 0 0.5rem;
+    transition: all 0.3s ease;
+    border: 1px solid #e2e8f0;
+  }
+  
+  .socials i:hover {
+    background-color: #2563eb;
+    color: white;
+    transform: translateY(-2px);
+  }
+  
+  /* Divider */
+  .divider {
+    display: flex;
+    align-items: center;
+    margin: 1.5rem 0;
+    color: #94a3b8;
+    font-size: 0.9rem;
+  }
+  
+  .divider::before, .divider::after {
+    content: "";
+    flex: 1;
+    border-bottom: 1px solid #e2e8f0;
+  }
+  
+  .divider::before {
+    margin-right: 1rem;
+  }
+  
+  .divider::after {
+    margin-left: 1rem;
+  }
+  
+  /* Additional Text */
+  .container p {
+    margin-top: 1.5rem;
+    color: #64748b;
+    font-size: 0.9rem;
+  }
+  
+  /* Responsive */
+  @media (max-width: 480px) {
+    .container {
+      width: 90%;
+      padding: 1.8rem;
+    }
+  }

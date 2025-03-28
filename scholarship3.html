@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Apply for our Athletic Excellence Scholarship for student athletes">
+  <title>Athletic Excellence Scholarship | Sports Scholarship Program</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #2b9348;
+      --secondary-color: #007f5f;
+      --accent-color: #80b918;
+      --light-color: #f8f9fa;
+      --dark-color: #212529;
+      --warning-color: #f0ad4e;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      line-height: 1.6;
+      color: var(--dark-color);
+      background-color: #f5f7fa;
+    }
+    
+    header {
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      color: white;
+      padding: 2.5rem 0;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    header::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path fill="rgba(255,255,255,0.1)" d="M0,0 L100,0 L100,100 L0,100 Z" /></svg>');
+      opacity: 0.1;
+    }
+    
+    header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+      position: relative;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+    }
+    
+    header p {
+      font-size: 1.2rem;
+      position: relative;
+    }
+    
+    .container {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 0 1.5rem;
+    }
+    
+    main {
+      background: white;
+      padding: 2.5rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+      position: relative;
+    }
+    
+    .sports-icon {
+      position: absolute;
+      top: -25px;
+      right: 30px;
+      background-color: var(--accent-color);
+      color: white;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    
+    h2 {
+      color: var(--secondary-color);
+      margin: 1.8rem 0 1.2rem;
+      font-size: 1.6rem;
+      border-bottom: 2px solid var(--accent-color);
+      padding-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+    
+    h2 i {
+      font-size: 1.4rem;
+    }
+    
+    p {
+      margin-bottom: 1.2rem;
+      line-height: 1.7;
+    }
+    
+    ul {
+      margin: 1.2rem 0 2rem 2rem;
+    }
+    
+    li {
+      margin-bottom: 0.7rem;
+      position: relative;
+      list-style-type: none;
+      padding-left: 1.8rem;
+    }
+    
+    li:before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.6rem;
+      width: 0.6rem;
+      height: 0.6rem;
+      background-color: var(--accent-color);
+      border-radius: 50%;
+    }
+    
+    .deadline-alert {
+      background-color: rgba(240, 173, 78, 0.15);
+      padding: 1.2rem;
+      border-radius: 8px;
+      border-left: 5px solid var(--warning-color);
+      margin: 2rem 0;
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+    }
+    
+    .deadline-alert i {
+      color: var(--warning-color);
+      font-size: 1.8rem;
+      flex-shrink: 0;
+    }
+    
+    .deadline-text {
+      flex-grow: 1;
+    }
+    
+    .deadline-text strong {
+      display: block;
+      margin-bottom: 0.3rem;
+      color: var(--dark-color);
+    }
+    
+    .btn-apply {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background-color: var(--primary-color);
+      color: white;
+      text-decoration: none;
+      padding: 1rem 2rem;
+      border-radius: 6px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      font-size: 1.1rem;
+      margin: 1.5rem 0 0.5rem;
+      box-shadow: 0 4px 8px rgba(43, 147, 72, 0.3);
+      border: none;
+    }
+    
+    .btn-apply:hover {
+      background-color: var(--secondary-color);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(43, 147, 72, 0.4);
+    }
+    
+    .btn-apply:active {
+      transform: translateY(0);
+    }
+    
+    .btn-apply i {
+      margin-right: 0.7rem;
+      font-size: 1.2rem;
+    }
+    
+    .sports-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+    
+    .sport-card {
+      background: white;
+      border-radius: 8px;
+      padding: 1.5rem;
+      text-align: center;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+      transition: all 0.3s ease;
+      border: 1px solid #e9ecef;
+    }
+    
+    .sport-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+    }
+    
+    .sport-icon {
+      font-size: 2.5rem;
+      color: var(--primary-color);
+      margin-bottom: 1rem;
+    }
+    
+    footer {
+      background: var(--dark-color);
+      color: white;
+      text-align: center;
+      padding: 2.5rem 0;
+      margin-top: 3rem;
+    }
+    
+    .footer-content {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+    
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin: 1.5rem 0;
+    }
+    
+    .footer-links a {
+      color: var(--accent-color);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    
+    .footer-links a:hover {
+      color: white;
+      text-decoration: underline;
+    }
+    
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 2rem;
+      }
+      
+      header p {
+        font-size: 1rem;
+      }
+      
+      .container {
+        padding: 0 1rem;
+      }
+      
+      main {
+        padding: 1.8rem;
+      }
+      
+      .sports-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Athletic Excellence Scholarship</h1>
+    <p>Recognizing outstanding student-athletes who demonstrate excellence in sports and academics</p>
+  </header>
+  
+  <div class="container">
+    <main>
+      <div class="sports-icon">
+        <i class="fas fa-trophy"></i>
+      </div>
+      
+      <p class="intro">This prestigious scholarship program supports talented student-athletes who have demonstrated exceptional performance in their sport while maintaining strong academic standing. Our goal is to help you achieve both your athletic and educational aspirations.</p>
+      
+      <div class="deadline-alert">
+        <i class="fas fa-exclamation-triangle"></i>
+        <div class="deadline-text">
+          <strong>Application Deadline:</strong> August 1, 2025
+          <div class="deadline-countdown" id="deadlineCountdown"></div>
+        </div>
+      </div>
+      
+      <h2><i class="fas fa-check-double"></i> Eligibility Criteria</h2>
+      <ul>
+        <li>Participation in state, national, or international level competitions within the last two years</li>
+        <li>Minimum cumulative GPA of 2.5 on a 4.0 scale</li>
+        <li>Enrollment or acceptance at an accredited college/university</li>
+        <li>Letter of recommendation from coach or athletic director</li>
+        <li>Commitment to continue participating in your sport at the collegiate level</li>
+        <li>Clean disciplinary record and good sportsmanship</li>
+      </ul>
+      
+      <h2><i class="fas fa-medal"></i> Eligible Sports</h2>
+      <div class="sports-grid">
+        <div class="sport-card">
+          <div class="sport-icon"><i class="fas fa-basketball-ball"></i></div>
+          <h3>Basketball</h3>
+        </div>
+        <div class="sport-card">
+          <div class="sport-icon"><i class="fas fa-football-ball"></i></div>
+          <h3>Football</h3>
+        </div>
+        <div class="sport-card">
+          <div class="sport-icon"><i class="fas fa-baseball-ball"></i></div>
+          <h3>Baseball</h3>
+        </div>
+        <div class="sport-card">
+          <div class="sport-icon"><i class="fas fa-volleyball-ball"></i></div>
+          <h3>Volleyball</h3>
+        </div>
+        <div class="sport-card">
+          <div class="sport-icon"><i class="fas fa-swimmer"></i></div>
+          <h3>Swimming</h3>
+        </div>
+        <div class="sport-card">
+          <div class="sport-icon"><i class="fas fa-running"></i></div>
+          <h3>Track & Field</h3>
+        </div>
+      </div>
+      
+      <h2><i class="fas fa-file-upload"></i> Required Documents</h2>
+      <ul>
+        <li>Completed scholarship application form</li>
+        <li>Official transcripts (sealed or electronic)</li>
+        <li>Certificates of athletic achievements/competitions</li>
+        <li>Two letters of recommendation (one from coach, one academic)</li>
+        <li>Personal statement (500-750 words) outlining your athletic journey and goals</li>
+        <li>Recent game/competition video highlights (YouTube/Vimeo link)</li>
+        <li>Proof of college acceptance (for incoming freshmen)</li>
+      </ul>
+      
+      <h2><i class="fas fa-award"></i> Award Details</h2>
+      <ul>
+        <li>Amount: $5,000 - $15,000 (based on achievement level)</li>
+        <li>Renewable for up to 4 years with maintained eligibility</li>
+        <li>Access to athletic mentorship program</li>
+        <li>Invitation to annual scholar-athlete recognition banquet</li>
+      </ul>
+      
+      <a href="apply.html" class="btn-apply" aria-label="Apply for Athletic Excellence Scholarship">
+        <i class="fas fa-edit"></i> Apply Now
+      </a>
+    </main>
+  </div>
+  
+  <footer>
+    <div class="footer-content">
+      <h3>Athletic Scholarship Program</h3>
+      <p>Supporting the next generation of scholar-athletes</p>
+      <div class="footer-links">
+        <a href="#"><i class="fas fa-phone"></i> (800) 555-9876</a>
+        <a href="#"><i class="fas fa-envelope"></i> athleticscholarships@edu.org</a>
+        <a href="#"><i class="fas fa-map-marker-alt"></i> Office of Athletic Scholarships</a>
+      </div>
+      <p>&copy; 2025 Athletic Scholarship Foundation. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Deadline countdown calculation
+    function updateCountdown() {
+      const deadline = new Date('August 1, 2025 23:59:59').getTime();
+      const now = new Date().getTime();
+      const distance = deadline - now;
+      
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      
+      const countdownElement = document.getElementById('deadlineCountdown');
+      
+      if (distance < 0) {
+        countdownElement.innerHTML = "Application deadline has passed";
+      } else {
+        countdownElement.innerHTML = `${days} days, ${hours} hours remaining`;
+      }
+    }
+    
+    // Update countdown every minute
+    updateCountdown();
+    setInterval(updateCountdown, 60000);
+  </script>
+</body>
+</html>

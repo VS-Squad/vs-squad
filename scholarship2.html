@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Apply for the Need-Based Scholarship to support your education">
+  <title>Need-Based Scholarship Application</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #4361ee;
+      --secondary-color: #3f37c9;
+      --accent-color: #4cc9f0;
+      --light-color: #f8f9fa;
+      --dark-color: #212529;
+      --success-color: #4bb543;
+      --warning-color: #f0ad4e;
+      --danger-color: #d9534f;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      line-height: 1.6;
+      color: var(--dark-color);
+      background-color: #f5f7fa;
+    }
+    
+    header {
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      color: white;
+      padding: 2rem 0;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    
+    header h1 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .container {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+    
+    main {
+      background: white;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    h2 {
+      color: var(--primary-color);
+      margin: 1.5rem 0 1rem;
+      font-size: 1.5rem;
+      border-bottom: 2px solid var(--accent-color);
+      padding-bottom: 0.5rem;
+    }
+    
+    p {
+      margin-bottom: 1rem;
+    }
+    
+    ul {
+      margin: 1rem 0 1.5rem 1.5rem;
+    }
+    
+    li {
+      margin-bottom: 0.5rem;
+      position: relative;
+      list-style-type: none;
+    }
+    
+    li:before {
+      content: "•";
+      color: var(--primary-color);
+      font-weight: bold;
+      display: inline-block;
+      width: 1em;
+      margin-left: -1em;
+    }
+    
+    .deadline-highlight {
+      background-color: #fff3cd;
+      padding: 1rem;
+      border-radius: 4px;
+      border-left: 4px solid var(--warning-color);
+      margin: 1.5rem 0;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    
+    .deadline-highlight i {
+      color: var(--warning-color);
+      font-size: 1.5rem;
+    }
+    
+    .btn-apply {
+      display: inline-block;
+      background-color: var(--primary-color);
+      color: white;
+      text-decoration: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 4px;
+      font-weight: 500;
+      transition: all 0.3s;
+      text-align: center;
+      border: 2px solid var(--primary-color);
+      cursor: pointer;
+      font-size: 1.1rem;
+      margin-top: 1rem;
+    }
+    
+    .btn-apply:hover {
+      background-color: var(--secondary-color);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    .btn-apply i {
+      margin-right: 0.5rem;
+    }
+    
+    footer {
+      background: var(--dark-color);
+      color: white;
+      text-align: center;
+      padding: 2rem 0;
+      margin-top: 3rem;
+    }
+    
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 1.75rem;
+      }
+      
+      .container {
+        padding: 0 1rem;
+      }
+      
+      main {
+        padding: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <h1>Need-Based Scholarship Program</h1>
+      <p>Financial support for students demonstrating economic need</p>
+    </div>
+  </header>
+  
+  <div class="container">
+    <main>
+      <p class="intro">This scholarship is designed to assist students who demonstrate significant financial need and are committed to pursuing higher education despite economic challenges.</p>
+      
+      <div class="deadline-highlight">
+        <i class="fas fa-exclamation-circle"></i>
+        <div>
+          <strong>Application Deadline:</strong> July 15, 2025
+          <div class="deadline-countdown" id="deadlineCountdown"></div>
+        </div>
+      </div>
+      
+      <h2><i class="fas fa-check-circle"></i> Eligibility Criteria</h2>
+      <ul>
+        <li>Must demonstrate verifiable financial need (family income below $50,000 annually)</li>
+        <li>Must be a resident of the state for at least 12 months</li>
+        <li>Must be enrolled or accepted at an accredited college/university</li>
+        <li>Minimum 2.5 GPA (on 4.0 scale) for continuing students</li>
+        <li>Must complete at least 20 hours of community service per academic year</li>
+      </ul>
+      
+      <h2><i class="fas fa-file-alt"></i> Required Documents</h2>
+      <ul>
+        <li>Completed scholarship application form</li>
+        <li>Official transcripts (high school or college)</li>
+        <li>Copy of most recent tax returns (student/parents)</li>
+        <li>Proof of income (pay stubs, W-2 forms, or other documentation)</li>
+        <li>Two letters of recommendation (one academic, one personal)</li>
+        <li>500-word personal statement describing financial need and educational goals</li>
+      </ul>
+      
+      <h2><i class="fas fa-question-circle"></i> Frequently Asked Questions</h2>
+      <div class="faq">
+        <h3>Can I apply if I'm an international student?</h3>
+        <p>No, this scholarship is only available to U.S. citizens or permanent residents who meet the state residency requirements.</p>
+        
+        <h3>When will award decisions be made?</h3>
+        <p>All applicants will be notified by August 31, 2025 via the email address provided in your application.</p>
+        
+        <h3>Can the scholarship be renewed?</h3>
+        <p>Yes, recipients may reapply each year provided they maintain a 2.5 GPA and submit proof of continued financial need.</p>
+      </div>
+      
+      <a href="apply.html" class="btn-apply" aria-label="Apply for Need-Based Scholarship">
+        <i class="fas fa-edit"></i> Apply Now
+      </a>
+    </main>
+  </div>
+  
+  <footer>
+    <div class="container">
+      <p>Need help with your application? Contact our scholarship office:</p>
+      <p><i class="fas fa-phone"></i> (555) 123-4567 | <i class="fas fa-envelope"></i> scholarships@educationfoundation.org</p>
+      <p>&copy; 2025 Education Foundation. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Deadline countdown calculation
+    function updateCountdown() {
+      const deadline = new Date('July 15, 2025 23:59:59').getTime();
+      const now = new Date().getTime();
+      const distance = deadline - now;
+      
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      
+      const countdownElement = document.getElementById('deadlineCountdown');
+      
+      if (distance < 0) {
+        countdownElement.innerHTML = "Application deadline has passed";
+      } else {
+        countdownElement.innerHTML = `${days} days, ${hours} hours, and ${minutes} minutes remaining`;
+      }
+    }
+    
+    // Update countdown every minute
+    updateCountdown();
+    setInterval(updateCountdown, 60000);
+  </script>
+</body>
+</html>

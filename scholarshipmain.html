@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Comprehensive scholarship portal for students to find and apply for educational funding">
+  <title>EduConnect - Scholarship Portal</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #4361ee;
+      --secondary-color: #3f37c9;
+      --accent-color: #4cc9f0;
+      --light-color: #f8f9fa;
+      --dark-color: #212529;
+      --success-color: #4bb543;
+      --warning-color: #f0ad4e;
+      --danger-color: #d9534f;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      line-height: 1.6;
+      color: var(--dark-color);
+      background-color: #f5f7fa;
+    }
+    
+    header {
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      color: white;
+      padding: 2rem 0;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    
+    header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+    
+    .search-filter {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      margin-bottom: 2rem;
+    }
+    
+    .filter-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    
+    .filter-group label {
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+    
+    select, input {
+      padding: 0.75rem;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-family: inherit;
+      width: 100%;
+    }
+    
+    button {
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: background-color 0.3s;
+    }
+    
+    button:hover {
+      background-color: var(--secondary-color);
+    }
+    
+    .scholarship-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+    
+    .scholarship-card {
+      background: white;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    
+    .scholarship-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    }
+    
+    .card-header {
+      background: var(--primary-color);
+      color: white;
+      padding: 1rem;
+    }
+    
+    .card-body {
+      padding: 1.5rem;
+    }
+    
+    .amount {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--success-color);
+      margin: 0.5rem 0;
+    }
+    
+    .deadline {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--danger-color);
+      margin: 0.5rem 0;
+    }
+    
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 1rem 0;
+    }
+    
+    .tag {
+      background: #e9ecef;
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.8rem;
+    }
+    
+    .btn-apply {
+      display: inline-block;
+      background-color: var(--primary-color);
+      color: white;
+      text-decoration: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 4px;
+      font-weight: 500;
+      transition: all 0.3s;
+      text-align: center;
+      border: 2px solid var(--primary-color);
+    }
+    
+    .btn-apply:hover {
+      background-color: white;
+      color: var(--primary-color);
+      border-color: var(--primary-color);
+    }
+    
+    .btn-container {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    
+    .btn-view {
+      background-color: white;
+      color: var(--primary-color);
+      border: 2px solid var(--primary-color);
+    }
+    
+    .btn-view:hover {
+      background-color: var(--primary-color);
+      color: white;
+    }
+    
+    footer {
+      background: var(--dark-color);
+      color: white;
+      text-align: center;
+      padding: 2rem 0;
+      margin-top: 3rem;
+    }
+    
+    @media (max-width: 768px) {
+      .scholarship-list {
+        grid-template-columns: 1fr;
+      }
+      
+      header h1 {
+        font-size: 2rem;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .btn-container {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <h1>EduConnect Scholarship Portal</h1>
+      <p>Find and apply for scholarships that match your profile</p>
+    </div>
+  </header>
+  
+  <main class="container">
+    <section class="search-filter">
+      <h2>Find Your Perfect Scholarship</h2>
+      <form id="searchForm">
+        <div class="filter-group">
+          <div style="flex: 1;">
+            <label for="field">Field of Study</label>
+            <select id="field">
+              <option value="">All Fields</option>
+              <option value="engineering">Engineering</option>
+              <option value="medicine">Medicine</option>
+              <option value="arts">Arts & Humanities</option>
+              <option value="business">Business</option>
+              <option value="science">Science</option>
+            </select>
+          </div>
+          <div style="flex: 1;">
+            <label for="amount">Minimum Amount</label>
+            <select id="amount">
+              <option value="">Any Amount</option>
+              <option value="1000">$1,000+</option>
+              <option value="5000">$5,000+</option>
+              <option value="10000">$10,000+</option>
+            </select>
+          </div>
+          <div style="flex: 1;">
+            <label for="deadline">Deadline</label>
+            <select id="deadline">
+              <option value="">Any Time</option>
+              <option value="30">Within 30 days</option>
+              <option value="60">Within 60 days</option>
+              <option value="90">Within 90 days</option>
+            </select>
+          </div>
+        </div>
+        <button type="submit">Search Scholarships</button>
+      </form>
+    </section>
+    
+    <section>
+      <h2>Available Scholarships</h2>
+      <div class="scholarship-list" id="scholarshipList">
+        <!-- Scholarship cards will be dynamically inserted here -->
+      </div>
+    </section>
+  </main>
+  
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 EduConnect Scholarship Portal. All rights reserved.</p>
+      <p>Need help? Contact us at <a href="mailto:support@educonnect.com" style="color: var(--accent-color);">support@educonnect.com</a></p>
+    </div>
+  </footer>
+
+  <script>
+    // Sample scholarship data with specific view details and apply links
+    const scholarships = [
+      {
+        id: 1,
+        title: "Academic Excellence Scholarship",
+        provider: "National Education Foundation",
+        amount: 10000,
+        deadline: "2025-12-15",
+        description: "Awarded to students with outstanding academic records and demonstrated leadership qualities.",
+        field: ["engineering", "science", "medicine", "business", "arts"],
+        type: "merit",
+        viewDetailsLink: "scholarship1.html",
+        applyLink: "apply.html?id=1"
+      },
+      {
+        id: 2,
+        title: "Future Innovators Grant",
+        provider: "TechForward Initiative",
+        amount: 7500,
+        deadline: "2025-11-30",
+        description: "For students pursuing STEM fields with innovative project ideas.",
+        field: ["engineering", "science"],
+        type: "merit",
+        viewDetailsLink: "scholarship2.html",
+        applyLink: "apply.html?id=2"
+      },
+      {
+        id: 3,
+        title: "Community Impact Scholarship",
+        provider: "Civic Leaders Association",
+        amount: 5000,
+        deadline: "2025-01-20",
+        description: "For students who have made significant contributions to their communities.",
+        field: ["arts", "business", "medicine"],
+        type: "need",
+        viewDetailsLink: "scholarship3.html",
+        applyLink: "apply.html?id=3"
+      },
+      {
+        id: 4,
+        title: "First-Generation Student Fund",
+        provider: "Higher Education Access Program",
+        amount: 8000,
+        deadline: "2025-12-01",
+        description: "Supporting students who are the first in their family to attend college.",
+        field: ["engineering", "science", "medicine", "business", "arts"],
+        type: "need",
+        viewDetailsLink: "scholarship4.html",
+        applyLink: "apply.html?id=4"
+      }
+    ];
+
+    // Function to render scholarship cards with specific links
+    function renderScholarships(filteredScholarships = scholarships) {
+      const container = document.getElementById('scholarshipList');
+      container.innerHTML = '';
+      
+      if (filteredScholarships.length === 0) {
+        container.innerHTML = '<p class="no-results">No scholarships match your search criteria. Try adjusting your filters.</p>';
+        return;
+      }
+      
+      filteredScholarships.forEach(scholarship => {
+        const deadlineDate = new Date(scholarship.deadline);
+        const today = new Date();
+        const daysLeft = Math.ceil((deadlineDate - today) / (1000 * 60 * 60 * 24));
+        
+        const card = document.createElement('div');
+        card.className = 'scholarship-card';
+        card.innerHTML = `
+          <div class="card-header">
+            <h3>${scholarship.title}</h3>
+            <p>${scholarship.provider}</p>
+          </div>
+          <div class="card-body">
+            <p>${scholarship.description}</p>
+            <div class="amount">$${scholarship.amount.toLocaleString()}</div>
+            <div class="deadline">
+              <i class="fas fa-clock"></i>
+              <span>${daysLeft > 0 ? `Due in ${daysLeft} days` : 'Deadline passed'}</span>
+            </div>
+            <div class="tags">
+              ${scholarship.field.map(field => `<span class="tag">${field}</span>`).join('')}
+              <span class="tag">${scholarship.type === 'merit' ? 'Merit-Based' : 'Need-Based'}</span>
+            </div>
+            <div class="btn-container">
+              <a href="${scholarship.viewDetailsLink}" class="btn-apply btn-view">
+                <i class="fas fa-info-circle"></i> View Details
+              </a>
+              <a href="${scholarship.applyLink}" class="btn-apply">
+                <i class="fas fa-edit"></i> Apply Now
+              </a>
+            </div>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    // Filter scholarships based on form inputs
+    document.getElementById('searchForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const fieldFilter = document.getElementById('field').value;
+      const amountFilter = parseInt(document.getElementById('amount').value) || 0;
+      const deadlineFilter = parseInt(document.getElementById('deadline').value);
+      
+      const today = new Date();
+      
+      const filtered = scholarships.filter(scholarship => {
+        if (fieldFilter && !scholarship.field.includes(fieldFilter)) return false;
+        if (amountFilter && scholarship.amount < amountFilter) return false;
+        if (deadlineFilter) {
+          const deadlineDate = new Date(scholarship.deadline);
+          const daysDiff = Math.ceil((deadlineDate - today) / (1000 * 60 * 60 * 24));
+          if (daysDiff > deadlineFilter || daysDiff < 0) return false;
+        }
+        return true;
+      });
+      
+      renderScholarships(filtered);
+    });
+
+    // Initial render
+    renderScholarships();
+  </script>
+</body>
+</html>

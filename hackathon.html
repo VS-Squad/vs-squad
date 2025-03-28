@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hackathon Hub | Find & Join Hackathons</title>
+    <style>
+        /* Reset & Base Styles */
+        :root {
+            --primary: #1f35d8;
+            --primary-dark: #1f35d8;
+            --secondary: #ff6d00;
+            --light-gray: #f5f5f5;
+            --medium-gray: #e0e0e0;
+            --dark-gray: #424242;
+            --white: #ffffff;
+            --black: #212121;
+            --shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', sans-serif;
+        }
+
+        body {
+            background-color: var(--light-gray);
+            color: var(--black);
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--primary);
+        }
+
+        /* Layout */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background-color: var(--white);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .logo span {
+            color: var(--secondary);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 25px;
+        }
+
+        nav ul li a {
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: var(--primary-dark);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background-color: #4074dc;
+            color: #ff6d00;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: var(--white);
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+
+        .search-bar {
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+        }
+
+        .search-bar input {
+            flex: 1;
+            padding: 12px 15px;
+            border: none;
+            border-radius: 4px 0 0 4px;
+            font-size: 1rem;
+        }
+
+        .search-bar button {
+            padding: 12px 20px;
+            background-color: var(--secondary);
+            color: var(--white);
+            border: none;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        /* Hackathon List */
+        .section-title {
+            text-align: center;
+            margin: 40px 0 30px;
+            font-size: 2rem;
+            color: var(--black);
+        }
+
+        .filters {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .filter-group {
+            display: flex;
+            gap: 15px;
+        }
+
+        .filter-btn {
+            padding: 8px 16px;
+            background-color: var(--white);
+            border: 1px solid var(--medium-gray);
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background-color: var(--primary);
+            color: var(--white);
+            border-color: var(--primary);
+        }
+
+        .hackathons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+
+        .hackathon-card {
+            background-color: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .hackathon-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+        }
+
+        .hackathon-image {
+            height: 180px;
+            background-color: var(--medium-gray);
+            background-size: cover;
+            background-position: center;
+        }
+
+        .hackathon-content {
+            padding: 20px;
+        }
+
+        .hackathon-title {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: var(--black);
+        }
+
+        .hackathon-host {
+            color: var(--dark-gray);
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+
+        .hackathon-details {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .detail-item {
+            display: flex;
+            align-items: center;
+            font-size: 0.9rem;
+            color: var(--dark-gray);
+        }
+
+        .detail-item i {
+            margin-right: 5px;
+            color: var(--primary);
+        }
+
+        .hackathon-prize {
+            background-color: var(--light-gray);
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-weight: 500;
+            color: var(--primary-dark);
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+
+        .hackathon-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .btn-outline {
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            background-color: transparent;
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark-gray);
+            color: var(--white);
+            padding: 50px 0 20px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .footer-column h3 {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-column ul li a {
+            color: var(--medium-gray);
+            transition: color 0.3s;
+        }
+
+        .footer-column ul li a:hover {
+            color: var(--white);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: var(--medium-gray);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            nav ul {
+                margin-top: 15px;
+            }
+
+            .hackathons-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .filters {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .filter-group {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">EDU<span>connect</span></div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Find Your Next Hackathon Challenge</h1>
+            <p>Join thousands of developers, designers, and innovators in building the future through hackathons.</p>
+            <div class="search-bar">
+                <input type="text" placeholder="Search hackathons...">
+                <button>Search</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="container">
+        <h2 class="section-title">Upcoming Hackathons</h2>
+        
+        <div class="filters">
+            <div class="filter-group">
+                <button class="filter-btn active">All</button>
+                <button class="filter-btn">Online</button>
+                <button class="filter-btn">In-Person</button>
+                <button class="filter-btn">Global</button>
+            </div>
+            <div class="filter-group">
+                <button class="filter-btn">Newest</button>
+                <button class="filter-btn">Popular</button>
+                <button class="filter-btn">High Prizes</button>
+            </div>
+        </div>
+
+        <div class="hackathons-grid">
+            <!-- Hackathon Card 1 -->
+            <div class="hackathon-card">
+                <div class="hackathon-image" style="background-image: url('https://media.licdn.com/dms/image/v2/D4E12AQFO10zJKSR1-w/article-cover_image-shrink_600_2000/article-cover_image-shrink_600_2000/0/1694353173857?e=2147483647&v=beta&t=gJXWt2RN8mHqQXMRD73KZ2jy9HPPKxnwiI0FbActnS4');"></div>
+                  <div class="hackathon-content">
+                    <h3 class="hackathon-title">Global AI Challenge 2025</h3>
+                    <p class="hackathon-host">Hosted by Tech Giants Inc.</p>
+                    <div class="hackathon-details">
+                        <div class="detail-item">
+                            <i>📅</i> Oct 15-17, 2025
+                        </div>
+                        <div class="detail-item">
+                            <i>🌐</i> Online
+                        </div>
+                        <div class="detail-item">
+                            <i>👥</i> 500+ participants
+                        </div>
+                    </div>
+                    <div class="hackathon-prize">$50,000 in prizes</div>
+                    <div class="hackathon-actions">
+                        <button class="btn btn-primary">Register</button>
+                        <button class="btn btn-outline">Save</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hackathon Card 2 -->
+            <div class="hackathon-card">
+                <div class="hackathon-image" style="background-image: url('data:image/jpeg;base64,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');"></div>
+                <div class="hackathon-content">
+                    <h3 class="hackathon-title">Blockchain Builders Summit</h3>
+                    <p class="hackathon-host">Hosted by Crypto Foundation</p>
+                    <div class="hackathon-details">
+                        <div class="detail-item">
+                            <i>📅</i> Nov 5-7, 2025
+                        </div>
+                        <div class="detail-item">
+                            <i>📍</i> San Francisco, CA
+                        </div>
+                        <div class="detail-item">
+                            <i>👥</i> 300+ participants
+                        </div>
+                    </div>
+                    <div class="hackathon-prize">$75,000 in prizes</div>
+                    <div class="hackathon-actions">
+                        <button class="btn btn-primary">Register</button>
+                        <button class="btn btn-outline">Save</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hackathon Card 3 -->
+            <div class="hackathon-card">
+                <div class="hackathon-image" style="background-image: url('https://media.istockphoto.com/id/1127710944/photo/concept-of-climate-change.jpg?s=612x612&w=0&k=20&c=22qD3d-cgdcqe-tryrwJUvFwcfnVXCKJDFj8yULb81Y=');"></div>
+                <div class="hackathon-content">
+                    <h3 class="hackathon-title">Climate Tech Hackathon</h3>
+                    <p class="hackathon-host">Hosted by Green Future Org</p>
+                    <div class="hackathon-details">
+                        <div class="detail-item">
+                            <i>📅</i> Dec 1-3, 2025
+                        </div>
+                        <div class="detail-item">
+                            <i>🌐</i> Online
+                        </div>
+                        <div class="detail-item">
+                            <i>👥</i> 1000+ participants
+                        </div>
+                    </div>
+                    <div class="hackathon-prize">$100,000 in prizes</div>
+                    <div class="hackathon-actions">
+                        <button class="btn btn-primary">Register</button>
+                        <button class="btn btn-outline">Save</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hackathon Card 4 -->
+            <div class="hackathon-card">
+                <div class="hackathon-image" style="background-image: url('https://www.medicalfair-asia.com/img/articles/5-major-tech-trends.jpg');"></div>
+                <div class="hackathon-content">
+                    <h3 class="hackathon-title">Health Tech Innovation</h3>
+                    <p class="hackathon-host">Hosted by Medical Solutions</p>
+                    <div class="hackathon-details">
+                        <div class="detail-item">
+                            <i>📅</i> Jan 12-14, 2025
+                        </div>
+                        <div class="detail-item">
+                            <i>📍</i> Boston, MA
+                        </div>
+                        <div class="detail-item">
+                            <i>👥</i> 200+ participants
+                        </div>
+                    </div>
+                    <div class="hackathon-prize">$30,000 in prizes</div>
+                    <div class="hackathon-actions">
+                        <button class="btn btn-primary">Register</button>
+                        <button class="btn btn-outline">Save</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hackathon Card 5 -->
+            <div class="hackathon-card">
+                <div class="hackathon-image" style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQaOK6HicgvQJMgqWqAXGL57pzcmGkdnzyFEA&s');"></div>
+                <div class="hackathon-content">
+                    <h3 class="hackathon-title">Fintech Revolution</h3>
+                    <p class="hackathon-host">Hosted by Bank Innovations</p>
+                    <div class="hackathon-details">
+                        <div class="detail-item">
+                            <i>📅</i> Feb 8-10, 2024
+                        </div>
+                        <div class="detail-item">
+                            <i>🌐</i> Online
+                        </div>
+                        <div class="detail-item">
+                            <i>👥</i> 800+ participants
+                        </div>
+                    </div>
+                    <div class="hackathon-prize">$60,000 in prizes</div>
+                    <div class="hackathon-actions">
+                        <button class="btn btn-primary">Register</button>
+                        <button class="btn btn-outline">Save</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hackathon Card 6 -->
+            <div class="hackathon-card">
+                <div class="hackathon-image" style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdSzm9P4VC8hMslR4ddC84twQb5J-W5brE1g&s');"></div>
+                <div class="hackathon-content">
+                    <h3 class="hackathon-title">Education Hack 2025</h3>
+                    <p class="hackathon-host">Hosted by Learning Labs</p>
+                    <div class="hackathon-details">
+                        <div class="detail-item">
+                            <i>📅</i> Mar 15-17, 2025
+                        </div>
+                        <div class="detail-item">
+                            <i>📍</i> New York, NY
+                        </div>
+                        <div class="detail-item">
+                            <i>👥</i> 400+ participants
+                        </div>
+                    </div>
+                    <div class="hackathon-prize">$45,000 in prizes</div>
+                    <div class="hackathon-actions">
+                        <button class="btn btn-primary">Register</button>
+                        <button class="btn btn-outline">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>HackathonHub</h3>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">Press</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Discover</h3>
+                    <ul>
+                        <li><a href="#">Hackathons</a></li>
+                        <li><a href="#">Projects</a></li>
+                        <li><a href="#">Winners</a></li>
+                        <li><a href="#">APIs</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Guides</a></li>
+                        <li><a href="#">Sponsors</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Connect</h3>
+                    <ul>
+                        <li><a href="#">Twitter</a></li>
+                        <li><a href="#">Facebook</a></li>
+                        <li><a href="#">Instagram</a></li>
+                        <li><a href="#">LinkedIn</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 HackathonHub. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+    <script>
+        // Filter functionality
+document.querySelectorAll('.filter-btn').forEach(button => {
+    button.addEventListener('click', () => {
+        // Remove active class from all buttons
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.classList.remove('active');
+        });
+        // Add active class to clicked button
+        button.classList.add('active');
+
+        // Get the filter criteria from the button's text content
+        const filterCriteria = button.textContent.trim().toLowerCase();
+
+        // Filter the hackathon cards based on the criteria
+        filterHackathons(filterCriteria);
+    });
+});
+
+// Function to filter hackathons
+function filterHackathons(criteria) {
+    const hackathonCards = document.querySelectorAll('.hackathon-card');
+
+    hackathonCards.forEach(card => {
+        const location = card.querySelector('.detail-item:nth-child(2)').textContent.toLowerCase();
+        const type = card.querySelector('.detail-item:nth-child(2)').textContent.toLowerCase();
+        const participants = parseInt(card.querySelector('.detail-item:nth-child(3)').textContent.replace(/\D/g, ''), 10);
+        const prize = parseInt(card.querySelector('.hackathon-prize').textContent.replace(/\D/g, ''), 10);
+
+        let showCard = false;
+
+        switch (criteria) {
+            case 'all':
+                showCard = true;
+                break;
+            case 'online':
+                showCard = type.includes('online');
+                break;
+            case 'in-person':
+                showCard = type.includes('in-person') || location !== 'online';
+                break;
+            case 'global':
+                showCard = location.includes('global') || location.includes('online');
+                break;
+            case 'newest':
+                // Sort by date (newest first)
+                const date = card.querySelector('.detail-item:nth-child(1)').textContent.toLowerCase();
+                const sortedCards = Array.from(hackathonCards).sort((a, b) => {
+                    const dateA = new Date(a.querySelector('.detail-item:nth-child(1)').textContent);
+                    const dateB = new Date(b.querySelector('.detail-item:nth-child(1)').textContent);
+                    return dateB - dateA;
+                });
+                sortedCards.forEach((card, index) => {
+                    card.style.order = index;
+                });
+                showCard = true;
+                break;
+            case 'popular':
+                // Sort by number of participants (descending)
+                const sortedByParticipants = Array.from(hackathonCards).sort((a, b) => {
+                    const participantsA = parseInt(a.querySelector('.detail-item:nth-child(3)').textContent.replace(/\D/g, ''), 10);
+                    const participantsB = parseInt(b.querySelector('.detail-item:nth-child(3)').textContent.replace(/\D/g, ''), 10);
+                    return participantsB - participantsA;
+                });
+                sortedByParticipants.forEach((card, index) => {
+                    card.style.order = index;
+                });
+                showCard = true;
+                break;
+            case 'high prizes':
+                // Sort by prize amount (descending)
+                const sortedByPrize = Array.from(hackathonCards).sort((a, b) => {
+                    const prizeA = parseInt(a.querySelector('.hackathon-prize').textContent.replace(/\D/g, ''), 10);
+                    const prizeB = parseInt(b.querySelector('.hackathon-prize').textContent.replace(/\D/g, ''), 10);
+                    return prizeB - prizeA;
+                });
+                sortedByPrize.forEach((card, index) => {
+                    card.style.order = index;
+                });
+                showCard = true;
+                break;
+            default:
+                showCard = true;
+                break;
+        }
+
+        // Show or hide the card based on the filter criteria
+        card.style.display = showCard ? '' : 'none';
+    });
+}
+    </script>
+
+    <script>
+        // Filter functionality
+        document.querySelectorAll('.filter-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons
+                document.querySelectorAll('.filter-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                // Add active class to clicked button
+                button.classList.add('active');
+                
+                // In a real app, you would filter the hackathons here
+                // For this demo, we'll just log the filter
+                console.log(`Filtering by: ${button.textContent}`);
+            });
+        });
+
+        // Search functionality
+        const searchInput = document.querySelector('.search-bar input');
+        const searchButton = document.querySelector('.search-bar button');
+        const hackathonCards = document.querySelectorAll('.hackathon-card');
+
+        searchButton.addEventListener('click', () => {
+            const searchTerm = searchInput.value.trim().toLowerCase();
+            hackathonCards.forEach(card => {
+                const title = card.querySelector('.hackathon-title').textContent.toLowerCase();
+                if (title.includes(searchTerm)) {
+                    card.style.display = ''; // Show card
+                } else {
+                    card.style.display = 'none'; // Hide card
+                }
+            });
+            if (!searchTerm) {
+                hackathonCards.forEach(card => card.style.display = ''); // Show all cards if search term is empty
+            }
+
+        });
+
+        // Save/Register button functionality
+        document.querySelectorAll('.hackathon-actions button').forEach(button => {
+            button.addEventListener('click', function() {
+                const card = this.closest('.hackathon-card');
+                const title = card.querySelector('.hackathon-title').textContent;
+                
+                if (this.textContent === 'Save') {
+                    console.log(`Saved hackathon: ${title}`);
+                    this.textContent = 'Saved';
+                    this.classList.add('btn-primary');
+                    this.classList.remove('btn-outline');
+                } else if (this.textContent === 'Register') {
+                    console.log(`Registering for: ${title}`);
+                    // In a real app, this would redirect to registration page
+                    alert(`You're being redirected to register for ${title}`);
+                }
+            });
+        });
+
+        // Responsive navigation (for mobile)
+        function setupMobileNav() {
+            if (window.innerWidth < 768) {
+                // Mobile-specific setup would go here
+                console.log('Mobile view detected');
+            }
+        }
+
+        // Initialize
+        window.addEventListener('load', setupMobileNav);
+        window.addEventListener('resize', setupMobileNav);
+    </script>
+</body>
+</html>

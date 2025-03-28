@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - EDU Connect</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f5f7ff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .container {
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      width: 90%;
+      max-width: 400px;
+      text-align: center;
+    }
+    h2 {
+      color: #2c3e50;
+      margin-bottom: 1.5rem;
+    }
+    input {
+      width: 100%;
+      padding: 0.8rem;
+      margin-bottom: 1rem;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+    button {
+      width: 100%;
+      padding: 0.8rem;
+      margin-bottom: 1rem;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    #login-btn {
+      background-color: #4a6bff;
+      color: white;
+    }
+    #login-btn:hover {
+      background-color: #3a5bef;
+    }
+    #signup-btn {
+      background-color: #f8f9fa;
+      color: #2c3e50;
+    }
+    #signup-btn:hover {
+      background-color: #e8ecff;
+    }
+    .socials {
+      margin-top: 1rem;
+    }
+    .socials i {
+      font-size: 1.5rem;
+      color: #2c3e50;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+    .socials i:hover {
+      color: #4a6bff;
+    }
+    h3 {
+      color: #666;
+      margin: 1rem 0;
+      position: relative;
+    }
+    h3::before, h3::after {
+      content: "";
+      flex: 1;
+      border-bottom: 1px solid #ddd;
+      margin: auto 1rem;
+    }
+    h3 {
+      display: flex;
+      align-items: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Login to EDU Connect</h2>
+    <input type="email" id="login-email" placeholder="Enter email">
+    <input type="password" id="login-password" placeholder="Enter password">
+    <button id="login-btn">Login</button>
+    <a href="signup.html"><button id="signup-btn">Sign Up</button></a>
+
+    <h3>Or</h3>
+    
+    <div class="socials">
+      <i class="fab fa-google" id="google-login-btn"></i>
+    </div>
+  </div>
+  
+  <script type="module" src="auth.js"></script>
+</body>
+</html>

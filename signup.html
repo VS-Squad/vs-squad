@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="styles.css">
+    <title>Sign Up</title>
+</head>
+<body>
+    <div class="container">
+        <h2>Sign Up</h2>
+        
+        <input type="text" id="signup-fullname" placeholder="Full Name" required>
+        <input type="email" id="signup-email" placeholder="Email" required>
+        <input type="tel" id="signup-phone" placeholder="Phone Number" required>
+        <input type="password" id="signup-password" placeholder="Password" required>
+        <input type="password" id="signup-confirm-password" placeholder="Confirm Password" required>
+        <button id="signup-btn">Sign Up</button>
+
+        <div class="divider">OR</div>
+        <div class="socials">
+            <i class="bx bxl-google bx-md" id="google-login-btn"></i>
+        </div>
+        Already have an account?<a href="login.html">Login</a>
+    </div>
+    
+
+    <script type="module" src="auth.js"></script>
+</body>
+</html>

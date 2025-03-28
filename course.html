@@ -1,0 +1,2922 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CourseHub - Unified Learning Platform</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Global Styles */
+        :root {
+            --primary-color: #6c63ff;
+            --secondary-color: #4d44db;
+            --dark-color: #2f2e41;
+            --light-color: #f8f9fa;
+            --success-color: #28a745;
+            --danger-color: #dc3545;
+            --warning-color: #ffc107;
+            --info-color: #17a2b8;
+            --gray-color: #6c757d;
+            --light-gray: #e9ecef;
+            --dark-gray: #343a40;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            color: var(--dark-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .login-btn {
+            background-color: transparent;
+            color: var(--dark-color);
+            margin-right: 10px;
+        }
+
+        .signup-btn {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .search-btn {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 12px 25px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .view-more-btn {
+            background-color: transparent;
+            color: var(--primary-color);
+            border: 1px solid var(--primary-color);
+        }
+
+        .view-more-btn:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .enroll-btn {
+            padding: 10px;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+            background-color: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            display: block;
+            text-align: center;
+        }
+
+        .enroll-btn:hover {
+            background-color: var(--secondary-color) !important;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Header Styles */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo h1 {
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .logo h1 span {
+            color: var(--primary-color);
+        }
+
+        .logo p {
+            font-size: 12px;
+            color: var(--gray-color);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--dark-color);
+            padding: 10px 15px;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover, nav ul li a.active {
+            color: var(--primary-color);
+        }
+
+        .user-actions {
+            display: flex;
+            align-items: center;
+        }
+
+        /* Auth Buttons */
+        .auth-buttons {
+            display: flex;
+            align-items: center;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            display: none;
+        }
+
+        .user-profile img {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        /* Wishlist Icon */
+        .wishlist-icon {
+            position: relative;
+            margin-right: 20px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: var(--gray-color);
+            transition: color 0.3s ease;
+        }
+
+        .wishlist-icon:hover {
+            color: var(--danger-color);
+        }
+
+        .wishlist-icon.active {
+            color: var(--danger-color);
+        }
+
+        .wishlist-icon #wishlist-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: var(--danger-color);
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 11px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #6c63ff, #4d44db);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+
+        .search-bar {
+            display: flex;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .search-bar input {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 5px 0 0 5px;
+            font-size: 16px;
+        }
+
+        .search-bar button {
+            border-radius: 0 5px 5px 0;
+        }
+
+        /* Platforms Section */
+        .platforms {
+            padding: 40px 0;
+            background-color: white;
+        }
+
+        .platforms h3 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 1.8rem;
+            color: var(--dark-color);
+        }
+
+        .platform-list {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .platform-item {
+            background-color: var(--light-color);
+            padding: 20px 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .platform-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .platform-item img {
+            max-height: 30px;
+            max-width: 120px;
+            object-fit: contain;
+        }
+
+        /* Categories Section */
+        .categories {
+            padding: 40px 0;
+        }
+
+        .categories h3 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 1.8rem;
+            color: var(--dark-color);
+        }
+
+        .category-list {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .category-item {
+            background-color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            width: 160px;
+        }
+
+        .category-item.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .category-item:hover:not(.active) {
+            background-color: var(--light-color);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(108, 99, 255, 0.1);
+        }
+
+        .category-item i {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .category-item span {
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        /* Featured Courses Section */
+        .featured-courses {
+            padding: 40px 0 60px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .section-header h3 {
+            font-size: 1.8rem;
+            color: var(--dark-color);
+        }
+
+        .filter-options select {
+            padding: 10px 15px;
+            border-radius: 5px;
+            border: 1px solid var(--light-gray);
+            background-color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .course-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .course-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .course-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .course-image {
+            height: 180px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .course-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .course-card:hover .course-image img {
+            transform: scale(1.1);
+        }
+
+        /* Platform Badge */
+        .platform-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            z-index: 10;
+        }
+
+        /* Save/Wishlist Button */
+        .save-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            z-index: 10;
+            color: var(--gray-color);
+            transition: all 0.3s ease;
+            border: none;
+        }
+
+        .save-btn:hover {
+            color: var(--danger-color);
+            transform: scale(1.1);
+        }
+
+        .save-btn.active {
+            color: var(--danger-color);
+        }
+
+        .course-info {
+            padding: 20px;
+        }
+
+        .course-info h4 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--dark-color);
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .course-instructor {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            color: var(--gray-color);
+            font-size: 14px;
+        }
+
+        .course-instructor img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin-right: 10px;
+            object-fit: cover;
+        }
+
+        .course-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            font-size: 14px;
+            color: var(--gray-color);
+        }
+
+        .course-price {
+            font-weight: bold;
+            color: var(--primary-color);
+            font-size: 1.2rem;
+        }
+
+        .course-rating {
+            display: flex;
+            align-items: center;
+        }
+
+        .course-rating i {
+            color: var(--warning-color);
+            margin-right: 5px;
+        }
+
+        .view-more {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        /* Course Bundles Section */
+        .course-bundles {
+            padding: 60px 0;
+            background-color: #f9f9f9;
+        }
+
+        .course-bundles h3 {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 1.8rem;
+            color: var(--dark-color);
+        }
+
+        .bundles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .bundle-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .bundle-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .bundle-image {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .bundle-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .bundle-info {
+            padding: 20px;
+        }
+
+        .bundle-info h4 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: var(--dark-color);
+        }
+
+        .bundle-info p {
+            color: var(--gray-color);
+            margin-bottom: 15px;
+        }
+
+        .bundle-price {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .original-price {
+            font-size: 1rem;
+            color: var(--gray-color);
+            text-decoration: line-through;
+            margin-left: 10px;
+        }
+
+        .bundle-btn {
+            width: 100%;
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        /* Course Modal */
+        .course-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 50px auto;
+            width: 80%;
+            max-width: 900px;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            animation: modalopen 0.5s;
+        }
+
+        @keyframes modalopen {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 24px;
+            color: var(--gray-color);
+            cursor: pointer;
+            transition: color 0.3s ease;
+            z-index: 10;
+            background: none;
+            border: none;
+        }
+
+        .close-modal:hover {
+            color: var(--danger-color);
+        }
+
+        .modal-body {
+            padding: 30px;
+        }
+
+        .modal-course-header {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .modal-course-image {
+            flex: 1;
+            min-width: 300px;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .modal-course-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .modal-course-info {
+            flex: 2;
+            min-width: 300px;
+        }
+
+        .modal-course-info h2 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: var(--dark-color);
+        }
+
+        .modal-course-instructor {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .modal-course-instructor img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 15px;
+            object-fit: cover;
+        }
+
+        .modal-course-meta {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .modal-course-meta span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: var(--gray-color);
+        }
+
+        .modal-course-rating {
+            color: var(--warning-color);
+            font-weight: bold;
+        }
+
+        .modal-course-price {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        .modal-course-content {
+            margin-top: 30px;
+        }
+
+        .course-description {
+            margin-bottom: 30px;
+        }
+
+        .course-description h3, .course-syllabus h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: var(--dark-color);
+        }
+
+        .course-syllabus ul {
+            list-style: none;
+            margin-bottom: 30px;
+            column-count: 2;
+            column-gap: 30px;
+        }
+
+        .course-syllabus li {
+            margin-bottom: 10px;
+            break-inside: avoid;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .course-syllabus li i {
+            color: var(--success-color);
+            margin-right: 10px;
+            margin-top: 3px;
+        }
+
+        .course-api-integration {
+            margin-top: 30px;
+            border-top: 1px solid var(--light-gray);
+            padding-top: 20px;
+        }
+
+        .course-api-integration h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: var(--dark-color);
+        }
+
+        .api-providers {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .api-provider {
+            border: 1px solid var(--light-gray);
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .api-provider:hover {
+            border-color: var(--primary-color);
+            background-color: rgba(108, 99, 255, 0.1);
+        }
+
+        .api-provider.active {
+            border-color: var(--primary-color);
+            background-color: rgba(108, 99, 255, 0.2);
+        }
+
+        .api-provider-logo {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+            object-fit: contain;
+        }
+
+        .api-iframe-container {
+            margin-top: 20px;
+            height: 500px;
+            border: 1px solid var(--light-gray);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .api-iframe-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Auth Modal */
+        .auth-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+        }
+
+        .auth-content {
+            background-color: white;
+            margin: 100px auto;
+            padding: 30px;
+            width: 400px;
+            max-width: 90%;
+            border-radius: 10px;
+            position: relative;
+        }
+
+        .auth-tabs {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .auth-tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--gray-color);
+        }
+
+        .auth-tab.active {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        .auth-form {
+            display: none;
+        }
+
+        .auth-form.active {
+            display: block;
+        }
+
+        .auth-form input {
+            width: 100%;
+            padding: 12px 15px;
+            margin-bottom: 15px;
+            border: 1px solid var(--light-gray);
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .auth-form button {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .auth-form button:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .auth-form .form-footer {
+            text-align: center;
+            margin-top: 20px;
+            color: var(--gray-color);
+        }
+
+        .auth-form .form-footer a {
+            color: var(--primary-color);
+            cursor: pointer;
+        }
+
+        .auth-error {
+            color: var(--danger-color);
+            margin-bottom: 15px;
+            text-align: center;
+            display: none;
+        }
+
+        /* Wishlist Modal */
+        .wishlist-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            overflow-y: auto;
+        }
+
+        .wishlist-modal .modal-content {
+            background-color: white;
+            margin: 50px auto;
+            width: 80%;
+            max-width: 800px;
+            border-radius: 10px;
+            padding: 30px;
+            position: relative;
+            animation: modalopen 0.5s;
+        }
+
+        .wishlist-modal h2 {
+            margin-bottom: 20px;
+            color: var(--dark-color);
+            padding-right: 30px;
+        }
+
+        .wishlist-items {
+            max-height: 60vh;
+            overflow-y: auto;
+            margin-bottom: 20px;
+        }
+
+        .empty-wishlist {
+            text-align: center;
+            padding: 30px;
+            color: var(--gray-color);
+        }
+
+        .wishlist-item {
+            display: flex;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid var(--light-gray);
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .wishlist-item:hover {
+            background-color: rgba(0, 0, 0, 0.02);
+        }
+
+        .wishlist-item:last-child {
+            border-bottom: none;
+        }
+
+        .wishlist-item-image {
+            width: 100px;
+            height: 60px;
+            margin-right: 20px;
+            border-radius: 5px;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .wishlist-item-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .wishlist-item-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .wishlist-item-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .wishlist-item-instructor {
+            font-size: 14px;
+            color: var(--gray-color);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .wishlist-item-price {
+            font-weight: bold;
+            color: var(--primary-color);
+            margin: 0 20px;
+            white-space: nowrap;
+        }
+
+        .wishlist-item-remove {
+            color: var(--danger-color);
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+            flex-shrink: 0;
+            padding: 5px;
+            background: none;
+            border: none;
+        }
+
+        .wishlist-item-remove:hover {
+            transform: scale(1.2);
+        }
+
+        .wishlist-actions {
+            text-align: right;
+            margin-top: 20px;
+        }
+
+        .clear-wishlist {
+            background-color: var(--danger-color);
+            color: white;
+        }
+
+        /* Footer Styles */
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 60px 0 0;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h4 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-section h4::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--primary-color);
+        }
+
+        .footer-section.about p {
+            margin-bottom: 20px;
+        }
+
+        .socials a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            text-align: center;
+            line-height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .socials a:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        .footer-section.links ul {
+            list-style: none;
+        }
+
+        .footer-section.links ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-section.links ul li a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section.links ul li a:hover {
+            color: var(--primary-color);
+        }
+
+        .footer-section.contact p {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .footer-section.contact i {
+            margin-right: 10px;
+            color: var(--primary-color);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding: 20px 0;
+            background-color: rgba(0, 0, 0, 0.2);
+            font-size: 14px;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .course-syllabus ul {
+                column-count: 1;
+            }
+            
+            .modal-course-header {
+                flex-direction: column;
+            }
+            
+            .modal-course-image {
+                min-width: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header .container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            nav {
+                margin: 20px 0;
+            }
+
+            .user-actions {
+                margin-top: 20px;
+            }
+
+            .hero h2 {
+                font-size: 2rem;
+            }
+
+            .search-bar {
+                flex-direction: column;
+            }
+
+            .search-bar input {
+                border-radius: 5px;
+                margin-bottom: 10px;
+            }
+
+            .search-bar button {
+                border-radius: 5px;
+                width: 100%;
+            }
+
+            .modal-content, .wishlist-modal .modal-content {
+                width: 95%;
+                margin: 20px auto;
+            }
+            
+            .wishlist-item {
+                flex-wrap: wrap;
+            }
+            
+            .wishlist-item-info {
+                min-width: calc(100% - 120px);
+            }
+            
+            .wishlist-item-price {
+                margin-left: 120px;
+                margin-right: 0;
+                margin-top: 10px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            nav ul {
+                flex-direction: column;
+            }
+
+            nav ul li {
+                margin-bottom: 10px;
+            }
+
+            .category-item {
+                width: 140px;
+                padding: 15px;
+            }
+            
+            .course-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .bundles-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .wishlist-item-image {
+                width: 80px;
+                height: 50px;
+            }
+            
+            .wishlist-item-price {
+                margin-left: 100px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>EDU<span>connect</span></h1>
+                <p>Your gateway to knowledge</p>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#" class="active">Home</a></li>
+                    <li><a href="#">Courses</a></li>
+                    <li><a href="#">Categories</a></li>
+                    <li><a href="#">My Learning</a></li>
+                </ul>
+            </nav>
+            <div class="user-actions">
+                <div class="wishlist-icon">
+                    <i class="fas fa-heart"></i>
+                    <span id="wishlist-count">0</span>
+                </div>
+                <div class="auth-buttons" id="auth-buttons">
+                    <button class="btn login-btn" id="login-btn">Login</button>
+                    <button class="btn signup-btn" id="signup-btn">Sign Up</button>
+                </div>
+                <div class="user-profile" id="user-profile">
+                    <img id="user-avatar" src="" alt="User">
+                    <span id="username"></span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h2>Learn from the world's best platforms</h2>
+                    <p>Access thousands of courses from top providers all in one place. Find the perfect learning path for your goals.</p>
+                    <div class="search-bar">
+                        <input type="text" placeholder="What do you want to learn today?">
+                        <button class="btn search-btn"><i class="fas fa-search"></i> Search</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="platforms">
+            <div class="container">
+                <h3>Integrated Platforms</h3>
+                <div class="platform-list">
+                    <div class="platform-item">
+                        <img src="https://www.udemy.com/staticx/udemy/images/v7/logo-udemy.svg" alt="Udemy">
+                    </div>
+                    <div class="platform-item">
+                        <img src="https://d3njjcbhbojbot.cloudfront.net/web/images/favicons/apple-touch-icon.png" alt="Coursera">
+                    </div>
+                    <div class="platform-item">
+                        <img src="https://www.edx.org/favicon.ico" alt="edX">
+                    </div>
+                    <div class="platform-item">
+                        <img src="https://www.skillshare.com/public/images/logos/skillshare-logo.svg" alt="Skillshare">
+                    </div>
+                    <div class="platform-item">
+                        <img src="https://www.pluralsight.com/content/dam/pluralsight2/site/icons/favicon.ico" alt="Pluralsight">
+                    </div>
+                    <div class="platform-item">
+                        <img src="https://www.duolingo.com/favicon.ico" alt="Duolingo">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="categories">
+            <div class="container">
+                <h3>Browse by Category</h3>
+                <div class="category-list">
+                    <div class="category-item active" data-category="all">
+                        <i class="fas fa-globe"></i>
+                        <span>All Categories</span>
+                    </div>
+                    <div class="category-item" data-category="development">
+                        <i class="fas fa-code"></i>
+                        <span>Development</span>
+                    </div>
+                    <div class="category-item" data-category="data-science">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>Data Science</span>
+                    </div>
+                    <div class="category-item" data-category="business">
+                        <i class="fas fa-briefcase"></i>
+                        <span>Business</span>
+                    </div>
+                    <div class="category-item" data-category="design">
+                        <i class="fas fa-palette"></i>
+                        <span>Design</span>
+                    </div>
+                    <div class="category-item" data-category="it">
+                        <i class="fas fa-server"></i>
+                        <span>IT & Software</span>
+                    </div>
+                    <div class="category-item" data-category="marketing">
+                        <i class="fas fa-bullhorn"></i>
+                        <span>Marketing</span>
+                    </div>
+                    <div class="category-item" data-category="personal">
+                        <i class="fas fa-brain"></i>
+                        <span>Personal Dev</span>
+                    </div>
+                    <div class="category-item" data-category="photography">
+                        <i class="fas fa-camera"></i>
+                        <span>Photography</span>
+                    </div>
+                    <div class="category-item" data-category="health">
+                        <i class="fas fa-heartbeat"></i>
+                        <span>Health</span>
+                    </div>
+                    <div class="category-item" data-category="language">
+                        <i class="fas fa-language"></i>
+                        <span>Language</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="featured-courses">
+            <div class="container">
+                <div class="section-header">
+                    <h3>Featured Courses</h3>
+                    <div class="filter-options">
+                        <select id="course-filter">
+                            <option value="all">All Courses</option>
+                            <option value="popular">Most Popular</option>
+                            <option value="newest">Newest</option>
+                            <option value="highest-rated">Highest Rated</option>
+                            <option value="free">Free Only</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="course-grid" id="course-container">
+                    <!-- Courses will be loaded here dynamically -->
+                </div>
+                <div class="view-more">
+                    <button class="btn view-more-btn">Load More Courses</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="course-bundles">
+            <div class="container">
+                <h3>Popular Course Bundles</h3>
+                <div class="bundles-grid">
+                    <div class="bundle-card">
+                        <div class="bundle-image">
+                            <img src="https://img-c.udemycdn.com/course/480x270/1362070_b9a1_2.jpg" alt="Web Development Bundle">
+                        </div>
+                        <div class="bundle-info">
+                            <h4>Complete Web Developer Bundle</h4>
+                            <p>Master front-end and back-end development with 5 courses</p>
+                            <div class="bundle-price">$199.99 <span class="original-price">$499.95</span></div>
+                            <button class="btn bundle-btn">View Bundle</button>
+                        </div>
+                    </div>
+                    <div class="bundle-card">
+                        <div class="bundle-image">
+                            <img src="https://img-c.udemycdn.com/course/480x270/1754098_e0df_3.jpg" alt="Data Science Bundle">
+                        </div>
+                        <div class="bundle-info">
+                            <h4>Data Science Professional Bundle</h4>
+                            <p>Python, Machine Learning, SQL and more in 6 courses</p>
+                            <div class="bundle-price">$249.99 <span class="original-price">$599.94</span></div>
+                            <button class="btn bundle-btn">View Bundle</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Auth Modal -->
+    <div class="auth-modal" id="auth-modal">
+        <div class="auth-content">
+            <span class="close-modal">&times;</span>
+            <div class="auth-tabs">
+                <div class="auth-tab active" data-tab="login">Login</div>
+                <div class="auth-tab" data-tab="signup">Sign Up</div>
+            </div>
+            
+            <div class="auth-error" id="auth-error"></div>
+            
+            <form class="auth-form active" id="login-form">
+                <input type="email" id="login-email" placeholder="Email" required>
+                <input type="password" id="login-password" placeholder="Password" required>
+                <button type="submit">Login</button>
+                <div class="form-footer">
+                    Don't have an account? <a id="switch-to-signup">Sign up</a>
+                </div>
+            </form>
+            
+            <form class="auth-form" id="signup-form">
+                <input type="text" id="signup-name" placeholder="Full Name" required>
+                <input type="email" id="signup-email" placeholder="Email" required>
+                <input type="password" id="signup-password" placeholder="Password" required>
+                <input type="password" id="signup-confirm-password" placeholder="Confirm Password" required>
+                <button type="submit">Create Account</button>
+                <div class="form-footer">
+                    Already have an account? <a id="switch-to-login">Login</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Course Modal -->
+    <div class="course-modal" id="course-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-body" id="modal-body">
+                <!-- Course details will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Wishlist Modal -->
+    <div class="wishlist-modal" id="wishlist-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Your Saved Courses</h2>
+            <div class="wishlist-items" id="wishlist-items">
+                <!-- Wishlist items will be loaded here -->
+            </div>
+            <div class="wishlist-actions">
+                <button class="btn clear-wishlist">Clear All</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section about">
+                    <div class="logo">
+                        <h1>Course<span>Hub</span></h1>
+                    </div>
+                    <p>Aggregating the best courses from top learning platforms to provide you a unified learning experience.</p>
+                    <div class="socials">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Courses</a></li>
+                        <li><a href="#">Categories</a></li>
+                        <li><a href="#">My Learning</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section contact">
+                    <h4>Contact Us</h4>
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Learning St, Education City</p>
+                    <p><i class="fas fa-phone"></i> +1 234 567 890</p>
+                    <p><i class="fas fa-envelope"></i> support@coursehub.com</p>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 CourseHub. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mock user data (in a real app, this would come from backend)
+            let currentUser = JSON.parse(localStorage.getItem('currentUser')) || null;
+            
+            // Expanded course data with 20+ courses
+            const courses = [
+                // Development Courses
+                {
+                    id: 'udemy-js-2023',
+                    title: "The Complete JavaScript Course 2023: From Zero to Expert!",
+                    instructor: "Jonas Schmedtmann",
+                    instructorImage: "https://randomuser.me/api/portraits/men/32.jpg",
+                    category: "development",
+                    image: "https://img-c.udemycdn.com/course/480x270/851712_fc61_6.jpg",
+                    duration: "35 hours",
+                    students: "120,000",
+                    rating: 4.7,
+                    price: "$84.99",
+                    isFree: false,
+                    platforms: [
+                        {
+                            name: "Udemy",
+                            logo: "https://www.udemy.com/staticx/udemy/images/v7/logo-udemy.svg",
+                            apiUrl: "https://www.udemy.com/api-2.0/courses/851712",
+                            embedUrl: "https://www.udemy.com/embed/851712",
+                            enrollmentUrl: "https://www.udemy.com/course/the-complete-javascript-course/"
+                        },
+                        {
+                            name: "Skillshare",
+                            logo: "https://www.skillshare.com/public/images/logos/skillshare-logo.svg",
+                            apiUrl: "https://api.skillshare.com/courses/javascript-complete",
+                            embedUrl: "https://www.skillshare.com/embed/javascript-complete",
+                            enrollmentUrl: "https://www.skillshare.com/en/classes/JavaScript-for-Beginners/"
+                        }
+                    ],
+                    description: "The modern JavaScript course for everyone! Master JavaScript with projects, challenges and theory. Many courses in one! This course is perfect for beginners and experienced developers alike. You'll learn JavaScript fundamentals, DOM manipulation, async JavaScript, and modern ES6+ features.",
+                    syllabus: [
+                        "JavaScript fundamentals - variables, functions, objects, arrays",
+                        "DOM manipulation and events",
+                        "Asynchronous JavaScript: Promises, async/await, AJAX",
+                        "Modern ES6+ features: arrow functions, destructuring, spread operator",
+                        "Object-oriented programming in JavaScript",
+                        "Real-world projects: Budget app, Weather app, Recipe app",
+                        "Error handling and debugging",
+                        "Modern tooling: npm, Parcel, Babel",
+                        "Working with APIs and JSON data",
+                        "Building single-page applications"
+                    ],
+                    lastUpdated: "2023-05-15"
+                },
+                {
+                    id: 'udemy-react-2023',
+                    title: "React - The Complete Guide (incl Hooks, React Router, Redux)",
+                    instructor: "Maximilian Schwarzmüller",
+                    instructorImage: "https://randomuser.me/api/portraits/men/25.jpg",
+                    category: "development",
+                    image: "https://img-c.udemycdn.com/course/480x270/1362070_b9a1_2.jpg",
+                    duration: "48 hours",
+                    students: "450,000",
+                    rating: 4.7,
+                    price: "$94.99",
+                    isFree: false,
+                    platforms: [
+                        {
+                            name: "Udemy",
+                            logo: "https://www.udemy.com/staticx/udemy/images/v7/logo-udemy.svg",
+                            apiUrl: "https://www.udemy.com/api-2.0/courses/1362070",
+                            embedUrl: "https://www.udemy.com/embed/1362070",
+                            enrollmentUrl: "https://www.udemy.com/course/react-the-complete-guide-incl-redux/"
+                        },
+                        {
+                            name: "Pluralsight",
+                            logo: "https://www.pluralsight.com/content/dam/pluralsight2/site/icons/favicon.ico",
+                            apiUrl: "https://api.pluralsight.com/courses/react-complete-guide",
+                            embedUrl: "https://www.pluralsight.com/embed/react-complete-guide",
+                            enrollmentUrl: "https://www.pluralsight.com/courses/react-js-getting-started"
+                        }
+                    ],
+                    description: "Dive in and learn React.js from scratch! Learn React, Hooks, Redux, React Router, Next.js, best practices and way more!",
+                    syllabus: [
+                        "React fundamentals and core concepts",
+                        "Hooks (useState, useEffect, etc.)",
+                        "React Router for navigation",
+                        "State management with Redux",
+                        "Next.js for server-side rendering",
+                        "Authentication in React apps",
+                        "Testing React components",
+                        "Deployment strategies",
+                        "Performance optimization",
+                        "Best practices and patterns"
+                    ],
+                    lastUpdated: "2023-04-10"
+                },
+                {
+                    id: 'coursera-python',
+                    title: "Python for Everybody Specialization",
+                    instructor: "Charles Russell Severance",
+                    instructorImage: "https://randomuser.me/api/portraits/men/45.jpg",
+                    category: "development",
+                    image: "https://img-c.udemycdn.com/course/480x270/394676_ce3d_5.jpg",
+                    duration: "32 hours",
+                    students: "1,200,000",
+                    rating: 4.8,
+                    price: "FREE",
+                    isFree: true,
+                    platforms: [
+                        {
+                            name: "Coursera",
+                            logo: "https://d3njjcbhbojbot.cloudfront.net/web/images/favicons/apple-touch-icon.png",
+                            apiUrl: "https://api.coursera.org/courses/python-for-everybody",
+                            embedUrl: "https://www.coursera.org/learn/python",
+                            enrollmentUrl: "https://www.coursera.org/specializations/python"
+                        }
+                    ],
+                    description: "Learn to Program and Analyze Data with Python. Develop programs to gather, clean, analyze, and visualize data.",
+                    syllabus: [
+                        "Python basics and fundamentals",
+                        "Data structures in Python",
+                        "Using Python to access web data",
+                        "Working with databases",
+                        "Data visualization",
+                        "Capstone project"
+                    ],
+                    lastUpdated: "2023-01-15"
+                },
+
+                // Data Science Courses
+                {
+                    id: 'udemy-ds-2023',
+                    title: "Data Science and Machine Learning Bootcamp with R",
+                    instructor: "Jose Portilla",
+                    instructorImage: "https://randomuser.me/api/portraits/men/22.jpg",
+                    category: "data-science",
+                    image: "https://img-c.udemycdn.com/course/480x270/1754098_e0df_3.jpg",
+                    duration: "28 hours",
+                    students: "180,000",
+                    rating: 4.6,
+                    price: "$94.99",
+                    isFree: false,
+                    platforms: [
+                        {
+                            name: "Udemy",
+                            logo: "https://www.udemy.com/staticx/udemy/images/v7/logo-udemy.svg",
+                            apiUrl: "https://www.udemy.com/api-2.0/courses/1754098",
+                            embedUrl: "https://www.udemy.com/embed/1754098",
+                            enrollmentUrl: "https://www.udemy.com/course/data-science-and-machine-learning-bootcamp-with-r/"
+                        }
+                    ],
+                    description: "Learn how to use the R programming language for data science and machine learning and data visualization!",
+                    syllabus: [
+                        "R programming fundamentals",
+                        "Data visualization with ggplot2",
+                        "Machine learning algorithms",
+                        "Data preprocessing",
+                        "Statistical analysis",
+                        "Time series analysis",
+                        "Natural language processing basics",
+                        "Shiny web applications"
+                    ],
+                    lastUpdated: "2023-03-20"
+                },
+                {
+                    id: 'edx-ai',
+                    title: "Artificial Intelligence MicroMasters",
+                    instructor: "MIT Faculty",
+                    instructorImage: "https://randomuser.me/api/portraits/men/60.jpg",
+                    category: "data-science",
+                    image: "https://img-c.udemycdn.com/course/480x270/1219332_bdd7.jpg",
+                    duration: "120 hours",
+                    students: "85,000",
+                    rating: 4.8,
+                    price: "$1,350",
+                    isFree: false,
+                    platforms: [
+                        {
+                            name: "edX",
+                            logo: "https://www.edx.org/favicon.ico",
+                            apiUrl: "https://api.edx.org/courses/mit-ai-micromasters",
+                            embedUrl: "https://www.edx.org/embed/micromasters/mitx-artificial-intelligence",
+                            enrollmentUrl: "https://www.edx.org/micromasters/mitx-artificial-intelligence"
+                        }
+                    ],
+                    description: "Gain expertise in one of the most fascinating and fastest growing areas of computer science through an innovative online program.",
+                    syllabus: [
+                        "Fundamentals of AI",
+                        "Machine learning algorithms",
+                        "Neural networks and deep learning",
+                        "Computer vision",
+                        "Natural language processing",
+                        "Reinforcement learning",
+                        "AI ethics and societal impact",
+                        "Capstone project"
+                    ],
+                    lastUpdated: "2023-02-28"
+                },
+
+                // Business Courses
+                {
+                    id: 'coursera-finance',
+                    title: "Financial Markets",
+                    instructor: "Robert Shiller",
+                    instructorImage: "https://randomuser.me/api/portraits/men/70.jpg",
+                    category: "business",
+                    image: "https://img-c.udemycdn.com/course/480x270/1561458_7aeb.jpg",
+                    duration: "18 hours",
+                    students: "320,000",
+                    rating: 4.8,
+                    price: "FREE",
+                    isFree: true,
+                    platforms: [
+                        {
+                            name: "Coursera",
+                            logo: "https://d3njjcbhbojbot.cloudfront.net/web/images/favicons/apple-touch-icon.png",
+                            apiUrl: "https://api.coursera.org/courses/financial-markets",
+                            embedUrl: "https://www.coursera.org/learn/financial-markets-global",
+                            enrollmentUrl: "https://www.coursera.org/learn/financial-markets-global"
+                        }
+                    ],
+                    description: "An overview of the ideas, methods, and institutions that permit human society to manage risks and foster enterprise.",
+                    syllabus: [
+                        "Risk management concepts",
+                        "Behavioral finance principles",
+                        "Stock markets and valuation",
+                        "Real estate markets",
+                        "Banking and monetary policy",
+                        "Insurance and derivatives",
+                        "Regulation and ethics"
+                    ],
+                    lastUpdated: "2023-01-10"
+                },
+                {
+                    id: 'udemy-mba',
+                    title: "The Complete Business Plan Course (Includes 50 Templates)",
+                    instructor: "Chris Haroun",
+                    instructorImage: "https://randomuser.me/api/portraits/men/33.jpg",
+                    category: "business",
+                    image: "https://img-c.udemycdn.com/course/480x270/1659676_128a_3.jpg",
+                    duration: "12 hours",
+                    students: "95,000",
+                    rating: 4.5,
+                    price: "$84.99",
+                    isFree: false,
+                    platforms: [
+                        {
+                            name: "Udemy",
+                            logo: "https://www.udemy.com/staticx/udemy/images/v7/logo-udemy.svg",
+                            apiUrl: "https://www.udemy.com/api-2.0/courses/1659676",
+                            embedUrl: "https://www.udemy.com/embed/1659676",
+                            enrollmentUrl: "https://www.udemy.com/course/the-complete-business-plan-course/"
+                        }
+                    ],
+                    description: "Everything you need to know to develop a successful business plan and get funding for your startup.",
+                    syllabus: [
+                        "Business plan fundamentals",
+                        "Market analysis techniques",
+                        "Financial projections",
+                        "Funding strategies",
+                        "Pitching to investors",
+                        "50+ business plan templates",
+                        "Case studies of successful startups",
+                        "Common mistakes to avoid"
+                    ],
+                    lastUpdated: "2023-03-05"
+                },
+
+                // Design Courses
+                {
+                    id: 'skillshare-uiux',
+                    title: "UI/UX Design Specialization",
+                    instructor: "Michael Wong",
+                    instructorImage: "https://randomuser.me/api/portraits/men/28.jpg",
+                    category: "design",
+                    image: "https://img-c.udemycdn.com/course/480x270/1659676_128a_3.jpg",
+                    duration: "35 hours",
+                    students: "65,000",
+                    rating: 4.7,
+                    price: "Included with membership",
+                    isFree: false,
+                    platforms: [
+                        {
+                            name: "Skillshare",
+                            logo: "https://www.skillshare.com/public/images/logos/skillshare-logo.svg",
+                            apiUrl: "https://api.skillshare.com/courses/ui-ux-design",
+                            embedUrl: "https://www.skillshare.com/embed/ui-ux-design",
+                            enrollmentUrl: "https://www.skillshare.com/en/classes/UIUX-Design-Fundamentals/"
+                        }
+                    ],
+                    description: "Master the process of designing beautiful, functional interfaces for web and mobile applications.",
+                    syllabus: [
+                        "Design thinking methodology",
+                        "User research techniques",
+                        "Wireframing and prototyping",
+                        "UI design principles",
+                        "UX best practices",
+                        "Design tools (Figma, Sketch)",
+                        "Design systems",
+                        "Portfolio development"
+                    ],
+                    lastUpdated: "2023-02-15"
+                },
+                {
+                    id: 'udemy-photoshop',
+                    title: "Adobe Photoshop CC - Essentials Training Course",
+                    instructor: "Dan Scott",
+                    instructorImage: "https://randomuser.me/api/portraits/men/40.jpg",
+                    category: "design",
+                    image: "https://img-c.udemycdn.com/course/480x270/1778502_f4b9_12.jpg",
+                    duration: "14 hours",
+                    students: "220,000",
+                    rating: 4.7,
+                    price: "$84.99",
+                    isFree: false,
+                    platforms: [
+                        {
+                            name: "Udemy",
+                            logo: "https://www.udemy.com/staticx/udemy/images/v7/logo-udemy.svg",
+                            apiUrl: "https://www.udemy.com/api-2.0/courses/1778502",
+                            embedUrl: "https://www.udemy.com/embed/1778502",
+                            enrollmentUrl: "https://www.udemy.com/course/adobe-photoshop-cc-essentials-training-course/"
+                        },
+                        {
+                            name: "Pluralsight",
+                            logo: "https://www.pluralsight.com/content/dam/pluralsight2/site/icons/favicon.ico",
+                            apiUrl: "https://api.pluralsight.com/courses/photoshop-essentials",
+                            embedUrl: "https://www.pluralsight.com/embed/photoshop-essentials",
+                            enrollmentUrl: "https://www.pluralsight.com/courses/photoshop-cc-fundamentals"
+                        }
+                    ],
+                    description: "Learn Adobe Photoshop CC graphic design, photo editing, and image effects through this comprehensive course.",
+                    syllabus: [
+                        "Photoshop interface and tools",
+                        "Photo retouching techniques",
+                        "Layers and masks",
+                        "Typography and text effects",
+                        "Color correction",
+                        "Selection techniques",
+                        "Filters and effects",
+                        "Compositing images"
+                    ],
+                    lastUpdated: "2023-01-30"
+                },
+
+                // IT & Software Courses
+                {
+                    id: 'udemy-aws',
+                    title: "AWS Certified Solutions Architect - Associate 2023",
+                    instructor: "Stephane Maarek",
+                    instructorImage: "https://randomuser.me/api/portraits/men/62.jpg",
+                    category: "it",
+                    image: "https://img-c.udemycdn.com/course/480x270/2196488_8fc7_10.jpg",
+                    duration: "27 hours",
+                    students: "300,000",
+                    rating: 4.7,
+                    price: "$84.99",
+                    isFree: false,
+                    platforms: [
+                        {
+                            name: "Udemy",
+                            logo: "https://www.udemy.com/staticx/udemy/images/v7/logo-udemy.svg",
+                            apiUrl: "https://www.udemy.com/api-2.0/courses/2196488",
+                            embedUrl: "https://www.udemy.com/embed/2196488",
+                            enrollmentUrl: "https://www.udemy.com/course/aws-certified-solutions-architect-associate-saa-c03/"
+                        }
+                    ],
+                    description: "Full Practice Exam with Explanations included! PASS the AWS Certified Solutions Architect Associate Certification SAA-C03!",
+                    syllabus: [
+                        "AWS fundamentals and global infrastructure",
+                        "IAM and security best practices",
+                        "EC2, EBS, and storage solutions",
+                        "Databases on AWS (RDS, DynamoDB)",
+                        "Route 53 and DNS management",
+                        "Security, monitoring, and auditing",
+                        "Serverless architecture (Lambda, API Gateway)",
+                        "Networking (VPC, Direct Connect)",
+                        "Disaster recovery strategies",
+                        "Exam tips and practice questions"
+                    ],
+                    lastUpdated: "2023-04-01"
+                },
+                {
+                    id: 'coursera-cyber',
+                    title: "Introduction to Cybersecurity Tools & Cyber Attacks",
+                    instructor: "IBM Security Learning Services",
+                    instructorImage: "https://randomuser.me/api/portraits/men/50.jpg",
+                    category: "it",
+                    image: "https://img-c.udemycdn.com/course/480x270/950390_270f_3.jpg",
+                    duration: "12 hours",
+                    students: "150,000",
+                    rating: 4.6,
+                    price: "FREE",
+                    isFree: true,
+                    platforms: [
+                        {
+                            name: "Coursera",
+                            logo: "https://d3njjcbhbojbot.cloudfront.net/web/images/favicons/apple-touch-icon.png",
+                            apiUrl: "https://api.coursera.org/courses/cybersecurity-intro",
+                            embedUrl: "https://www.coursera.org/learn/cybersecurity-intro",
+                            enrollmentUrl: "https://www.coursera.org/learn/cybersecurity-intro"
+                        }
+                    ],
+                    description: "This course gives you the background needed to understand basic Cybersecurity. You will learn the history of Cybersecurity.",
+                    syllabus: [
+                        "Cybersecurity history and concepts",
+                        "Common attack types and vectors",
+                        "Security technologies and tools",
+                        "Cryptography basics",
+                        "Security compliance and standards",
+                        "Risk management fundamentals",
+                        "Career paths in cybersecurity"
+                    ],
+                    lastUpdated: "2023-02-20"
+                },
+
+                // Marketing Courses
+                {
+                    id: 'udemy-digital-marketing',
+                    title: "The Complete Digital Marketing Course - 12 Courses in 1",
+                    instructor: "Rob Percival",
+                    instructorImage: "https://randomuser.me/api/portraits/men/42.jpg",
+                    category: "marketing",
+                    image: "https://img-c.udemycdn.com/course/480x270/914296_3670_8.jpg",
+                    duration: "22.5 hours",
+                    students: "180,000",
+                    rating: 4.5,
+                    price: "$84.99",
+                    isFree: false,
+                    platforms: [
+                        {
+                            name: "Udemy",
+                            logo: "https://www.udemy.com/staticx/udemy/images/v7/logo-udemy.svg",
+                            apiUrl: "https://www.udemy.com/api-2.0/courses/914296",
+                            embedUrl: "https://www.udemy.com/embed/914296",
+                            enrollmentUrl: "https://www.udemy.com/course/learn-digital-marketing-course/"
+                        }
+                    ],
+                    description: "Master Digital Marketing: Strategy, Social Media Marketing, SEO, YouTube, Email, Facebook Marketing, Analytics & More!",
+                    syllabus: [
+                        "Digital marketing strategy development",
+                        "Facebook & Instagram ads and marketing",
+                        "Google Ads (AdWords) and Analytics",
+                        "Email marketing and automation",
+                        "SEO and content marketing",
+                        "YouTube marketing and video ads",
+                        "Growth hacking techniques",
+                        "Conversion rate optimization",
+                        "Affiliate marketing basics",
+                        "Building sales funnels"
+                    ],
+                    lastUpdated: "2023-01-20"
+                },
+                {
+                    id: 'skillshare-content-marketing',
+                    title: "Content Marketing Masterclass: Create Content That Sells",
+                    instructor: "Ella Hutchinson",
+                    instructorImage: "https://randomuser.me/api/portraits/women/35.jpg",
+                    category: "marketing",
+                    image: "https://img-c.udemycdn.com/course/480x270/1561458_7aeb.jpg",
+                    duration: "8 hours",
+                    students: "45,000",
+                    rating: 4.7,
+                    price: "Included with membership",
+                    isFree: false,
+                    platforms: [
+                        {
+                            name: "Skillshare",
+                            logo: "https://www.skillshare.com/public/images/logos/skillshare-logo.svg",
+                            apiUrl: "https://api.skillshare.com/courses/content-marketing",
+                            embedUrl: "https://www.skillshare.com/embed/content-marketing",
+                            enrollmentUrl: "https://www.skillshare.com/en/classes/Content-Marketing-Masterclass/"
+                        }
+                    ],
+                    description: "Learn how to create compelling content that drives traffic, generates leads, and increases sales for your business.",
+                    syllabus: [
+                        "Content strategy development",
+                        "Blogging for business",
+                        "Social media content creation",
+                        "Email marketing content",
+                        "SEO for content creators",
+                        "Content repurposing strategies",
+                        "Measuring content performance",
+                        "Content calendar planning"
+                    ],
+                    lastUpdated: "2023-03-15"
+                },
+
+                // Personal Development Courses
+                {
+                    id: 'coursera-learning',
+                    title: "Learning How to Learn: Powerful mental tools to help you master tough subjects",
+                    instructor: "Dr. Barbara Oakley",
+                    instructorImage: "https://randomuser.me/api/portraits/women/50.jpg",
+                    category: "personal",
+                    image: "https://img-c.udemycdn.com/course/480x270/396876_cc92_7.jpg",
+                    duration: "15 hours",
+                    students: "2,500,000",
+                    rating: 4.8,
+                    price: "FREE",
+                    isFree: true,
+                    platforms: [
+                        {
+                            name: "Coursera",
+                            logo: "https://d3njjcbhbojbot.cloudfront.net/web/images/favicons/apple-touch-icon.png",
+                            apiUrl: "https://api.coursera.org/courses/learning-how-to-learn",
+                            embedUrl: "https://www.coursera.org/learn/learning-how-to-learn",
+                            enrollmentUrl: "https://www.coursera.org/learn/learning-how-to-learn"
+                        }
+                    ],
+                    description: "This course gives you easy access to the invaluable learning techniques used by experts in art, music, literature, math, and more.",
+                    syllabus: [
+                        "How the brain learns effectively",
+                        "Memory techniques and chunking",
+                        "Overcoming procrastination",
+                        "Dealing with information overload",
+                        "Test-taking strategies",
+                        "Unlocking your learning potential"
+                    ],
+                    lastUpdated: "2023-01-05"
+                },
+                {
+                    id: 'udemy-productivity',
+                    title: "Productivity Masterclass - Principles to Be Productive",
+                    instructor: "Patrick Dang",
+                    instructorImage: "https://randomuser.me/api/portraits/men/30.jpg",
+                    category: "personal",
+                    image: "https://img-c.udemycdn.com/course/480x270/1659676_128a_3.jpg",
+                    duration: "6 hours",
+                    students: "95,000",
+                    rating: 4.6,
+                    price: "$74.99",
+                    isFree: false,
+                    platforms: [
+                        {
+                            name: "Udemy",
+                            logo: "https://www.udemy.com/staticx/udemy/images/v7/logo-udemy.svg",
+                            apiUrl: "https://www.udemy.com/api-2.0/courses/1659676",
+                            embedUrl: "https://www.udemy.com/embed/1659676",
+                            enrollmentUrl: "https://www.udemy.com/course/productivity-masterclass-principles-to-be-productive/"
+                        }
+                    ],
+                    description: "Learn productivity principles used by top CEOs and entrepreneurs to maximize efficiency and achieve more in less time.",
+                    syllabus: [
+                        "Time management techniques",
+                        "Goal setting frameworks",
+                        "Prioritization methods",
+                        "Habit formation strategies",
+                        "Focus and concentration",
+                        "Energy management",
+                        "Tools and apps for productivity",
+                        "Work-life balance"
+                    ],
+                    lastUpdated: "2023-02-10"
+                },
+
+                // Photography Courses
+                {
+                    id: 'udemy-photography',
+                    title: "Photography Masterclass: A Complete Guide to Photography",
+                    instructor: "Phil Ebiner",
+                    instructorImage: "https://randomuser.me/api/portraits/men/35.jpg",
+                    category: "photography",
+                    image: "https://img-c.udemycdn.com/course/480x270/1328572_6f47_6.jpg",
+                    duration: "22 hours",
+                    students: "150,000",
+                    rating: 4.7,
+                    price: "$84.99",
+                    isFree: false,
+                    platforms: [
+                        {
+                            name: "Udemy",
+                            logo: "https://www.udemy.com/staticx/udemy/images/v7/logo-udemy.svg",
+                            apiUrl: "https://www.udemy.com/api-2.0/courses/1328572",
+                            embedUrl: "https://www.udemy.com/embed/1328572",
+                            enrollmentUrl: "https://www.udemy.com/course/photography-masterclass-complete-guide-to-photography/"
+                        }
+                    ],
+                    description: "The best online professional photography class: How to take amazing photos for beginners & advanced photographers.",
+                    syllabus: [
+                        "Camera settings and modes",
+                        "Composition techniques",
+                        "Lighting fundamentals",
+                        "Portrait photography",
+                        "Landscape photography",
+                        "Editing in Lightroom",
+                        "Night photography",
+                        "Business of photography"
+                    ],
+                    lastUpdated: "2023-01-25"
+                },
+                {
+                    id: 'skillshare-mobile-photo',
+                    title: "Mobile Photography: How to Take Professional Photos With Your Phone",
+                    instructor: "Jessica Kobeissi",
+                    instructorImage: "https://randomuser.me/api/portraits/women/40.jpg",
+                    category: "photography",
+                    image: "https://img-c.udemycdn.com/course/480x270/1778502_f4b9_12.jpg",
+                    duration: "5 hours",
+                    students: "75,000",
+                    rating: 4.6,
+                    price: "Included with membership",
+                    isFree: false,
+                    platforms: [
+                        {
+                            name: "Skillshare",
+                            logo: "https://www.skillshare.com/public/images/logos/skillshare-logo.svg",
+                            apiUrl: "https://api.skillshare.com/courses/mobile-photography",
+                            embedUrl: "https://www.skillshare.com/embed/mobile-photography",
+                            enrollmentUrl: "https://www.skillshare.com/en/classes/Mobile-Photography-Take-Pro-Photos-With-Your-Phone/"
+                        }
+                    ],
+                    description: "Learn how to take stunning photos with just your smartphone and edit them like a professional.",
+                    syllabus: [
+                        "Smartphone camera features",
+                        "Composition for mobile",
+                        "Lighting techniques",
+                        "Mobile editing apps",
+                        "Portrait mode mastery",
+                        "Social media optimization",
+                        "Creating a cohesive feed",
+                        "Building a portfolio"
+                    ],
+                    lastUpdated: "2023-03-01"
+                },
+
+                // Health & Fitness Courses
+                {
+                    id: 'udemy-nutrition',
+                    title: "Nutrition Masterclass: Build Your Perfect Diet & Meal Plan",
+                    instructor: "Felix Harder",
+                    instructorImage: "https://randomuser.me/api/portraits/men/38.jpg",
+                    category: "health",
+                    image: "https://img-c.udemycdn.com/course/480x270/1754098_e0df_3.jpg",
+                    duration: "10 hours",
+                    students: "85,000",
+                    rating: 4.7,
+                    price: "$74.99",
+                    isFree: false,
+                    platforms: [
+                        {
+                            name: "Udemy",
+                            logo: "https://www.udemy.com/staticx/udemy/images/v7/logo-udemy.svg",
+                            apiUrl: "https://www.udemy.com/api-2.0/courses/1754098",
+                            embedUrl: "https://www.udemy.com/embed/1754098",
+                            enrollmentUrl: "https://www.udemy.com/course/nutrition-masterclass-build-your-perfect-diet-meal-plan/"
+                        }
+                    ],
+                    description: "Learn how to build your perfect diet and optimize your health with science-based nutrition strategies.",
+                    syllabus: [
+                        "Macronutrients basics",
+                        "Micronutrients and supplements",
+                        "Meal timing strategies",
+                        "Diet for fat loss",
+                        "Diet for muscle gain",
+                        "Nutrition for performance",
+                        "Meal planning and prep",
+                        "Nutrition myths debunked"
+                    ],
+                    lastUpdated: "2023-02-05"
+                },
+                {
+                    id: 'skillshare-yoga',
+                    title: "Yoga for Beginners: The Complete Guide to Getting Started",
+                    instructor: "Adriene Mishler",
+                    instructorImage: "https://randomuser.me/api/portraits/women/45.jpg",
+                    category: "health",
+                    image: "https://img-c.udemycdn.com/course/480x270/1328572_6f47_6.jpg",
+                    duration: "7 hours",
+                    students: "120,000",
+                    rating: 4.8,
+                    price: "Included with membership",
+                    isFree: false,
+                    platforms: [
+                        {
+                            name: "Skillshare",
+                            logo: "https://www.skillshare.com/public/images/logos/skillshare-logo.svg",
+                            apiUrl: "https://api.skillshare.com/courses/yoga-beginners",
+                            embedUrl: "https://www.skillshare.com/embed/yoga-beginners",
+                            enrollmentUrl: "https://www.skillshare.com/en/classes/Yoga-for-Beginners-The-Complete-Guide/"
+                        }
+                    ],
+                    description: "A complete step-by-step guide to yoga for absolute beginners. Learn proper alignment, breathing, and foundational poses.",
+                    syllabus: [
+                        "Yoga fundamentals and philosophy",
+                        "Basic poses and sequences",
+                        "Breathing techniques (pranayama)",
+                        "Meditation basics",
+                        "Yoga for stress relief",
+                        "Building a home practice",
+                        "Modifications for different bodies",
+                        "Developing a consistent routine"
+                    ],
+                    lastUpdated: "2023-01-15"
+                },
+
+                // Language Courses
+                {
+                    id: 'duolingo-spanish',
+                    title: "Spanish for Beginners: The Complete Method - Level 1",
+                    instructor: "Duolingo Team",
+                    instructorImage: "https://randomuser.me/api/portraits/men/55.jpg",
+                    category: "language",
+                    image: "https://img-c.udemycdn.com/course/480x270/1561458_7aeb.jpg",
+                    duration: "20 hours",
+                    students: "500,000",
+                    rating: 4.7,
+                    price: "FREE",
+                    isFree: true,
+                    platforms: [
+                        {
+                            name: "Duolingo",
+                            logo: "https://www.duolingo.com/favicon.ico",
+                            apiUrl: "https://api.duolingo.com/courses/spanish-beginners",
+                            embedUrl: "https://www.duolingo.com/embed/spanish-beginners",
+                            enrollmentUrl: "https://www.duolingo.com/learn"
+                        }
+                    ],
+                    description: "Learn Spanish with this comprehensive course for beginners. Develop your listening, speaking, reading, and writing skills.",
+                    syllabus: [
+                        "Basic greetings and introductions",
+                        "Present tense verbs",
+                        "Everyday vocabulary",
+                        "Sentence structure",
+                        "Asking questions",
+                        "Numbers and time",
+                        "Common phrases",
+                        "Cultural insights"
+                    ],
+                    lastUpdated: "2023-03-10"
+                },
+                {
+                    id: 'udemy-japanese',
+                    title: "Japanese for Beginners: Learn to Speak Japanese in 30 Days",
+                    instructor: "Yuko Sensei",
+                    instructorImage: "https://randomuser.me/api/portraits/women/30.jpg",
+                    category: "language",
+                    image: "https://img-c.udemycdn.com/course/480x270/1778502_f4b9_12.jpg",
+                    duration: "25 hours",
+                    students: "95,000",
+                    rating: 4.6,
+                    price: "$84.99",
+                    isFree: false,
+                    platforms: [
+                        {
+                            name: "Udemy",
+                            logo: "https://www.udemy.com/staticx/udemy/images/v7/logo-udemy.svg",
+                            apiUrl: "https://www.udemy.com/api-2.0/courses/1778502",
+                            embedUrl: "https://www.udemy.com/embed/1778502",
+                            enrollmentUrl: "https://www.udemy.com/course/japanese-for-beginners-learn-to-speak-japanese/"
+                        }
+                    ],
+                    description: "Learn to speak Japanese you can use in everyday real-world situations - all in just 30 days!",
+                    syllabus: [
+                        "Hiragana and Katakana",
+                        "Basic greetings and phrases",
+                        "Sentence structure",
+                        "Numbers and counting",
+                        "Asking questions",
+                        "Daily conversation",
+                        "Japanese culture insights",
+                        "Survival Japanese for travel"
+                    ],
+                    lastUpdated: "2023-02-20"
+                }
+            ];
+
+            // DOM Elements
+            const courseContainer = document.getElementById('course-container');
+            const courseFilter = document.getElementById('course-filter');
+            const categoryItems = document.querySelectorAll('.category-item');
+            const courseModal = document.getElementById('course-modal');
+            const modalBody = document.getElementById('modal-body');
+            const closeModalButtons = document.querySelectorAll('.close-modal');
+            const wishlistIcon = document.querySelector('.wishlist-icon');
+            const wishlistModal = document.getElementById('wishlist-modal');
+            const wishlistItems = document.getElementById('wishlist-items');
+            const wishlistCount = document.getElementById('wishlist-count');
+            const clearWishlistBtn = document.querySelector('.clear-wishlist');
+            const searchInput = document.querySelector('.search-bar input');
+            const searchBtn = document.querySelector('.search-btn');
+            const viewMoreBtn = document.querySelector('.view-more-btn');
+            const bundleBtns = document.querySelectorAll('.bundle-btn');
+            const authModal = document.getElementById('auth-modal');
+            const loginBtn = document.getElementById('login-btn');
+            const signupBtn = document.getElementById('signup-btn');
+            const authTabs = document.querySelectorAll('.auth-tab');
+            const authForms = document.querySelectorAll('.auth-form');
+            const loginForm = document.getElementById('login-form');
+            const signupForm = document.getElementById('signup-form');
+            const switchToSignup = document.getElementById('switch-to-signup');
+            const switchToLogin = document.getElementById('switch-to-login');
+            const authError = document.getElementById('auth-error');
+            const authButtons = document.getElementById('auth-buttons');
+            const userProfile = document.getElementById('user-profile');
+            const userAvatar = document.getElementById('user-avatar');
+            const usernameSpan = document.getElementById('username');
+
+            // State
+            let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+            let displayedCourses = [];
+            let currentFilter = 'all';
+            let currentCategory = 'all';
+            let currentSearchTerm = '';
+
+            // Initialize the app
+            updateWishlistCount();
+            displayCourses(courses);
+            displayedCourses = [...courses];
+            updateAuthUI();
+
+            // Event Listeners
+            categoryItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const category = this.getAttribute('data-category');
+                    currentCategory = category;
+                    categoryItems.forEach(cat => cat.classList.remove('active'));
+                    this.classList.add('active');
+                    filterAndDisplayCourses();
+                });
+            });
+
+            courseFilter.addEventListener('change', function() {
+                currentFilter = this.value;
+                filterAndDisplayCourses();
+            });
+
+            wishlistIcon.addEventListener('click', openWishlistModal);
+            
+            closeModalButtons.forEach(btn => {
+                btn.addEventListener('click', closeModalHandler);
+            });
+
+            clearWishlistBtn.addEventListener('click', clearWishlist);
+            window.addEventListener('click', outsideClickHandler);
+
+            // Search functionality
+            searchBtn.addEventListener('click', performSearch);
+            searchInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') performSearch();
+            });
+
+            // View more courses
+            viewMoreBtn.addEventListener('click', function() {
+                // In a real app, this would load more courses from an API
+                alert('Loading more courses... This would fetch additional courses from the APIs in a real implementation.');
+            });
+
+            // Bundle buttons
+            bundleBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    alert('This would show the bundle details and included courses in a real implementation.');
+                });
+            });
+
+            // Auth functionality
+            loginBtn.addEventListener('click', () => openAuthModal('login'));
+            signupBtn.addEventListener('click', () => openAuthModal('signup'));
+            
+            authTabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const tabName = this.getAttribute('data-tab');
+                    switchAuthTab(tabName);
+                });
+            });
+            
+            switchToSignup.addEventListener('click', () => switchAuthTab('signup'));
+            switchToLogin.addEventListener('click', () => switchAuthTab('login'));
+            
+            loginForm.addEventListener('submit', handleLogin);
+            signupForm.addEventListener('submit', handleSignup);
+            
+            userProfile.addEventListener('click', function() {
+                if (confirm('Are you sure you want to log out?')) {
+                    logout();
+                }
+            });
+
+            // Functions
+            function filterAndDisplayCourses() {
+                let filteredCourses = [...courses];
+                
+                // Apply category filter
+                if (currentCategory !== 'all') {
+                    filteredCourses = filteredCourses.filter(course => course.category === currentCategory);
+                }
+                
+                // Apply search filter
+                if (currentSearchTerm) {
+                    filteredCourses = filteredCourses.filter(course => 
+                        course.title.toLowerCase().includes(currentSearchTerm) || 
+                        course.instructor.toLowerCase().includes(currentSearchTerm) ||
+                        course.category.toLowerCase().includes(currentSearchTerm) ||
+                        course.description.toLowerCase().includes(currentSearchTerm)
+                    );
+                }
+                
+                // Apply additional filters
+                switch(currentFilter) {
+                    case 'popular':
+                        filteredCourses.sort((a, b) => parseInt(b.students.replace(/,/g, '')) - parseInt(a.students.replace(/,/g, '')));
+                        break;
+                    case 'newest':
+                        filteredCourses.sort((a, b) => new Date(b.lastUpdated) - new Date(a.lastUpdated));
+                        break;
+                    case 'highest-rated':
+                        filteredCourses.sort((a, b) => b.rating - a.rating);
+                        break;
+                    case 'free':
+                        filteredCourses = filteredCourses.filter(course => course.isFree);
+                        break;
+                    default:
+                        // 'all' - no sorting needed
+                        break;
+                }
+                
+                displayedCourses = filteredCourses;
+                displayCourses(filteredCourses);
+            }
+
+            function displayCourses(coursesToDisplay) {
+                courseContainer.innerHTML = '';
+                
+                if (coursesToDisplay.length === 0) {
+                    courseContainer.innerHTML = '<p class="no-courses">No courses found matching your criteria.</p>';
+                    return;
+                }
+                
+                coursesToDisplay.forEach(course => {
+                    const isInWishlist = wishlist.some(item => item.id === course.id);
+                    
+                    const courseCard = document.createElement('div');
+                    courseCard.className = 'course-card';
+                    courseCard.innerHTML = `
+                        <div class="course-image">
+                            <span class="platform-badge">${course.platforms[0].name}</span>
+                            <img src="${course.image}" alt="${course.title}" loading="lazy">
+                            <button class="save-btn ${isInWishlist ? 'active' : ''}" data-course-id="${course.id}">
+                                <i class="fas fa-heart"></i>
+                            </button>
+                        </div>
+                        <div class="course-info">
+                            <h4>${course.title}</h4>
+                            <div class="course-instructor">
+                                <img src="${course.instructorImage}" alt="${course.instructor}" loading="lazy">
+                                <span>${course.instructor}</span>
+                            </div>
+                            <div class="course-meta">
+                                <span><i class="fas fa-clock"></i> ${course.duration}</span>
+                                <span><i class="fas fa-user-graduate"></i> ${course.students}</span>
+                            </div>
+                            <div class="course-meta">
+                                <div class="course-rating">
+                                    <i class="fas fa-star"></i>
+                                    <span>${course.rating}</span>
+                                </div>
+                                <div class="course-price">${course.price}</div>
+                            </div>
+                            <a href="${course.platforms[0].enrollmentUrl}" target="_blank" class="btn enroll-btn">Enroll Now</a>
+                        </div>
+                    `;
+                    
+                    // Open modal when clicking on course (but not on save button or enroll button)
+                    courseCard.addEventListener('click', (e) => {
+                        if (!e.target.closest('.save-btn') && !e.target.closest('.enroll-btn')) {
+                            openCourseModal(course);
+                        }
+                    });
+                    
+                    // Add save button functionality
+                    const saveBtn = courseCard.querySelector('.save-btn');
+                    saveBtn.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        toggleWishlist(course);
+                        this.classList.toggle('active');
+                    });
+                    
+                    courseContainer.appendChild(courseCard);
+                });
+            }
+
+            function openCourseModal(course) {
+                const isInWishlist = wishlist.some(item => item.id === course.id);
+                
+                modalBody.innerHTML = `
+                    <div class="modal-course-header">
+                        <div class="modal-course-image">
+                            <img src="${course.image}" alt="${course.title}" loading="lazy">
+                            <button class="save-btn ${isInWishlist ? 'active' : ''}" data-course-id="${course.id}">
+                                <i class="fas fa-heart"></i>
+                            </button>
+                        </div>
+                        <div class="modal-course-info">
+                            <h2>${course.title}</h2>
+                            <div class="modal-course-instructor">
+                                <img src="${course.instructorImage}" alt="${course.instructor}" loading="lazy">
+                                <span>Created by ${course.instructor}</span>
+                            </div>
+                            <div class="modal-course-meta">
+                                <span><i class="fas fa-clock"></i> ${course.duration}</span>
+                                <span><i class="fas fa-user-graduate"></i> ${course.students} students</span>
+                                <span class="modal-course-rating"><i class="fas fa-star"></i> ${course.rating} rating</span>
+                                <span><i class="fas fa-calendar-alt"></i> Updated ${formatDate(course.lastUpdated)}</span>
+                            </div>
+                            <div class="modal-course-price">${course.price}</div>
+                            <a href="${course.platforms[0].enrollmentUrl}" target="_blank" class="btn enroll-btn">Enroll on ${course.platforms[0].name}</a>
+                        </div>
+                    </div>
+                    <div class="modal-course-content">
+                        <div class="course-description">
+                            <h3>Description</h3>
+                            <p>${course.description}</p>
+                        </div>
+                        <div class="course-syllabus">
+                            <h3>What you'll learn</h3>
+                            <ul>
+                                ${course.syllabus.map(item => `<li><i class="fas fa-check"></i> ${item}</li>`).join('')}
+                            </ul>
+                        </div>
+                        <div class="course-api-integration">
+                            <h3>Available On These Platforms</h3>
+                            <div class="api-providers">
+                                ${course.platforms.map((platform, index) => `
+                                    <div class="api-provider ${index === 0 ? 'active' : ''}" 
+                                         data-embed-url="${platform.embedUrl}"
+                                         data-enrollment-url="${platform.enrollmentUrl}"
+                                         data-platform-name="${platform.name}">
+                                        <img src="${platform.logo}" alt="${platform.name}" class="api-provider-logo">
+                                        <span>${platform.name}</span>
+                                    </div>
+                                `).join('')}
+                            </div>
+                            <div class="api-iframe-container">
+                                <iframe src="${course.platforms[0].embedUrl}" frameborder="0" allowfullscreen></iframe>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                // Add event listeners to platform providers
+                const providers = modalBody.querySelectorAll('.api-provider');
+                const iframeContainer = modalBody.querySelector('.api-iframe-container iframe');
+                const enrollBtn = modalBody.querySelector('.enroll-btn');
+                
+                providers.forEach(provider => {
+                    provider.addEventListener('click', function() {
+                        providers.forEach(p => p.classList.remove('active'));
+                        this.classList.add('active');
+                        const embedUrl = this.getAttribute('data-embed-url');
+                        const enrollmentUrl = this.getAttribute('data-enrollment-url');
+                        const platformName = this.getAttribute('data-platform-name');
+                        
+                        iframeContainer.src = embedUrl;
+                        enrollBtn.href = enrollmentUrl;
+                        enrollBtn.textContent = `Enroll on ${platformName}`;
+                    });
+                });
+                
+                // Add save button functionality in modal
+                const modalSaveBtn = modalBody.querySelector('.save-btn');
+                modalSaveBtn.addEventListener('click', function() {
+                    toggleWishlist(course);
+                    this.classList.toggle('active');
+                    
+                    // Also update the save button in the course card if visible
+                    const courseCardBtn = document.querySelector(`.save-btn[data-course-id="${course.id}"]`);
+                    if (courseCardBtn) {
+                        courseCardBtn.classList.toggle('active');
+                    }
+                });
+                
+                courseModal.style.display = 'block';
+                document.body.style.overflow = 'hidden';
+            }
+
+            function toggleWishlist(course) {
+                if (!currentUser) {
+                    alert('Please login to save courses to your wishlist');
+                    openAuthModal('login');
+                    return;
+                }
+                
+                const index = wishlist.findIndex(item => item.id === course.id);
+                
+                if (index === -1) {
+                    // Add to wishlist
+                    wishlist.push({
+                        id: course.id,
+                        title: course.title,
+                        instructor: course.instructor,
+                        image: course.image,
+                        price: course.price,
+                        platform: course.platforms[0].name,
+                        enrollmentUrl: course.platforms[0].enrollmentUrl
+                    });
+                } else {
+                    // Remove from wishlist
+                    wishlist.splice(index, 1);
+                }
+                
+                updateWishlistCount();
+                saveWishlistToStorage();
+            }
+
+            function updateWishlistCount() {
+                wishlistCount.textContent = wishlist.length;
+                wishlistIcon.classList.toggle('active', wishlist.length > 0);
+            }
+
+            function saveWishlistToStorage() {
+                localStorage.setItem('wishlist', JSON.stringify(wishlist));
+            }
+
+            function openWishlistModal() {
+                if (!currentUser) {
+                    alert('Please login to view your wishlist');
+                    openAuthModal('login');
+                    return;
+                }
+                
+                if (wishlist.length === 0) {
+                    wishlistItems.innerHTML = '<p class="empty-wishlist">Your wishlist is empty. Start saving courses!</p>';
+                } else {
+                    wishlistItems.innerHTML = wishlist.map(item => `
+                        <div class="wishlist-item" data-course-id="${item.id}">
+                            <div class="wishlist-item-image">
+                                <img src="${item.image}" alt="${item.title}" loading="lazy">
+                            </div>
+                            <div class="wishlist-item-info">
+                                <div class="wishlist-item-title">${item.title}</div>
+                                <div class="wishlist-item-instructor">${item.instructor}</div>
+                            </div>
+                            <div class="wishlist-item-price">${item.price}</div>
+                            <button class="wishlist-item-remove" data-course-id="${item.id}">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    `).join('');
+                    
+                    // Add remove functionality
+                    document.querySelectorAll('.wishlist-item-remove').forEach(btn => {
+                        btn.addEventListener('click', function(e) {
+                            e.stopPropagation();
+                            const courseId = this.getAttribute('data-course-id');
+                            removeFromWishlist(courseId);
+                        });
+                    });
+                    
+                    // Add click to open course
+                    document.querySelectorAll('.wishlist-item').forEach(item => {
+                        item.addEventListener('click', function() {
+                            const courseId = this.getAttribute('data-course-id');
+                            const course = courses.find(c => c.id === courseId);
+                            if (course) {
+                                closeModalHandler();
+                                openCourseModal(course);
+                            }
+                        });
+                    });
+                }
+                
+                wishlistModal.style.display = 'block';
+                document.body.style.overflow = 'hidden';
+            }
+
+            function removeFromWishlist(courseId) {
+                wishlist = wishlist.filter(item => item.id !== courseId);
+                saveWishlistToStorage();
+                updateWishlistCount();
+                openWishlistModal(); // Refresh the view
+                
+                // Update save buttons in course cards
+                document.querySelectorAll(`.save-btn[data-course-id="${courseId}"]`).forEach(btn => {
+                    btn.classList.remove('active');
+                });
+            }
+
+            function clearWishlist() {
+                if (confirm('Are you sure you want to clear your wishlist?')) {
+                    wishlist = [];
+                    saveWishlistToStorage();
+                    updateWishlistCount();
+                    openWishlistModal();
+                    
+                    // Update all save buttons
+                    document.querySelectorAll('.save-btn.active').forEach(btn => {
+                        btn.classList.remove('active');
+                    });
+                }
+            }
+
+            function closeModalHandler() {
+                courseModal.style.display = 'none';
+                wishlistModal.style.display = 'none';
+                authModal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+
+            function outsideClickHandler(e) {
+                if (e.target === courseModal || e.target === wishlistModal || e.target === authModal) {
+                    closeModalHandler();
+                }
+            }
+
+            function performSearch() {
+                currentSearchTerm = searchInput.value.toLowerCase().trim();
+                filterAndDisplayCourses();
+            }
+
+            function formatDate(dateString) {
+                const options = { year: 'numeric', month: 'long', day: 'numeric' };
+                return new Date(dateString).toLocaleDateString(undefined, options);
+            }
+
+            // Auth functions
+            function openAuthModal(tab) {
+                authModal.style.display = 'block';
+                document.body.style.overflow = 'hidden';
+                switchAuthTab(tab);
+            }
+
+            function switchAuthTab(tabName) {
+                authTabs.forEach(tab => {
+                    if (tab.getAttribute('data-tab') === tabName) {
+                        tab.classList.add('active');
+                    } else {
+                        tab.classList.remove('active');
+                    }
+                });
+                
+                authForms.forEach(form => {
+                    if (form.id === `${tabName}-form`) {
+                        form.classList.add('active');
+                    } else {
+                        form.classList.remove('active');
+                    }
+                });
+                
+                authError.style.display = 'none';
+            }
+
+            function handleLogin(e) {
+                e.preventDefault();
+                const email = document.getElementById('login-email').value;
+                const password = document.getElementById('login-password').value;
+                
+                // In a real app, this would be an API call to your backend
+                simulateLogin(email, password)
+                    .then(user => {
+                        currentUser = user;
+                        localStorage.setItem('currentUser', JSON.stringify(user));
+                        updateAuthUI();
+                        closeModalHandler();
+                    })
+                    .catch(error => {
+                        showAuthError(error);
+                    });
+            }
+
+            function handleSignup(e) {
+                e.preventDefault();
+                const name = document.getElementById('signup-name').value;
+                const email = document.getElementById('signup-email').value;
+                const password = document.getElementById('signup-password').value;
+                const confirmPassword = document.getElementById('signup-confirm-password').value;
+                
+                if (password !== confirmPassword) {
+                    showAuthError('Passwords do not match');
+                    return;
+                }
+                
+                // In a real app, this would be an API call to your backend
+                simulateSignup(name, email, password)
+                    .then(user => {
+                        currentUser = user;
+                        localStorage.setItem('currentUser', JSON.stringify(user));
+                        updateAuthUI();
+                        closeModalHandler();
+                    })
+                    .catch(error => {
+                        showAuthError(error);
+                    });
+            }
+
+            function logout() {
+                currentUser = null;
+                localStorage.removeItem('currentUser');
+                updateAuthUI();
+            }
+
+            function updateAuthUI() {
+                if (currentUser) {
+                    authButtons.style.display = 'none';
+                    userProfile.style.display = 'flex';
+                    userAvatar.src = currentUser.avatar || 'https://randomuser.me/api/portraits/men/1.jpg';
+                    usernameSpan.textContent = currentUser.name;
+                } else {
+                    authButtons.style.display = 'flex';
+                    userProfile.style.display = 'none';
+                }
+            }
+
+            function showAuthError(message) {
+                authError.textContent = message;
+                authError.style.display = 'block';
+            }
+
+            // Mock auth functions (replace with real API calls in production)
+            function simulateLogin(email, password) {
+                return new Promise((resolve, reject) => {
+                    setTimeout(() => {
+                        if (email === 'user@example.com' && password === 'password') {
+                            resolve({
+                                id: 1,
+                                name: 'John Doe',
+                                email: 'user@example.com',
+                                avatar: 'https://randomuser.me/api/portraits/men/1.jpg'
+                            });
+                        } else {
+                            reject('Invalid email or password');
+                        }
+                    }, 500);
+                });
+            }
+
+            function simulateSignup(name, email, password) {
+                return new Promise((resolve, reject) => {
+                    setTimeout(() => {
+                        if (email && password && name) {
+                            resolve({
+                                id: Math.floor(Math.random() * 1000),
+                                name: name,
+                                email: email,
+                                avatar: `https://randomuser.me/api/portraits/men/${Math.floor(Math.random() * 100)}.jpg`
+                            });
+                        } else {
+                            reject('Please fill in all fields');
+                        }
+                    }, 500);
+                });
+            }
+
+            // Simulate API calls to different platforms
+            async function fetchCourseDataFromPlatforms(courseId) {
+                const course = courses.find(c => c.id === courseId);
+                if (!course) return null;
+                
+                const platformData = {};
+                
+                for (const platform of course.platforms) {
+                    try {
+                        console.log(`Fetching data from ${platform.name} API for course ${courseId}`);
+                        const response = await simulateAPICall(platform.apiUrl);
+                        
+                        if (response.success) {
+                            platformData[platform.name] = response.data;
+                        } else {
+                            console.error(`Error from ${platform.name} API:`, response.error);
+                        }
+                    } catch (error) {
+                        console.error(`Failed to fetch from ${platform.name} API:`, error);
+                    }
+                }
+                
+                return platformData;
+            }
+            
+            function simulateAPICall(url) {
+                // In a real app, this would be actual API calls using fetch or axios
+                return new Promise(resolve => {
+                    setTimeout(() => {
+                        // Simulate different responses based on platform
+                        if (url.includes('udemy.com')) {
+                            resolve({
+                                success: true,
+                                data: {
+                                    rating: 4.7,
+                                    students: 120000,
+                                    discountPrice: "$84.99",
+                                    originalPrice: "$199.99"
+                                }
+                            });
+                        } else if (url.includes('coursera.org')) {
+                            resolve({
+                                success: true,
+                                data: {
+                                    rating: 4.6,
+                                    students: 85000,
+                                    price: "$49/month",
+                                    subscription: true
+                                }
+                            });
+                        } else if (url.includes('edx.org')) {
+                            resolve({
+                                success: true,
+                                data: {
+                                    rating: 4.5,
+                                    students: 65000,
+                                    price: "Free (certificate for $99)"
+                                }
+                            });
+                        } else if (url.includes('skillshare.com')) {
+                            resolve({
+                                success: true,
+                                data: {
+                                    rating: 4.4,
+                                    students: 45000,
+                                    price: "Included with membership"
+                                }
+                            });
+                        } else if (url.includes('duolingo.com')) {
+                            resolve({
+                                success: true,
+                                data: {
+                                    rating: 4.7,
+                                    students: 500000,
+                                    price: "Free (premium features available)"
+                                }
+                            });
+                        } else {
+                            resolve({
+                                success: false,
+                                error: 'Unknown platform API'
+                            });
+                        }
+                    }, 500); // Simulate network delay
+                });
+            }
+        });
+    </script>
+</body>
+</html>

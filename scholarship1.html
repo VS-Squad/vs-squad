@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Merit-Based Scholarship | EDUCourse</title>
+  <style>
+    :root {
+      --primary-color: #6e48aa;
+      --secondary-color: #9d50bb;
+      --accent-color: #f8d56b;
+      --dark-color: #333;
+      --light-color: #f5f7fa;
+      --success-color: #4ecdc4;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    body {
+      background-color: var(--light-color);
+      color: var(--dark-color);
+      line-height: 1.6;
+    }
+    
+    header {
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      color: white;
+      padding: 2rem 0;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    
+    header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .breadcrumb {
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 0.9rem;
+    }
+    
+    .breadcrumb a {
+      color: var(--accent-color);
+      text-decoration: none;
+    }
+    
+    main {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 0 1.5rem;
+    }
+    
+    .scholarship-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 2rem;
+    }
+    
+    .scholarship-amount {
+      background-color: var(--success-color);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+    
+    .scholarship-content {
+      background-color: white;
+      border-radius: 8px;
+      padding: 2rem;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    }
+    
+    .scholarship-content p {
+      margin-bottom: 1.5rem;
+      font-size: 1.1rem;
+    }
+    
+    h2 {
+      color: var(--primary-color);
+      margin: 1.5rem 0 1rem;
+      font-size: 1.5rem;
+      border-bottom: 2px solid var(--accent-color);
+      padding-bottom: 0.5rem;
+    }
+    
+    ul {
+      margin-left: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    li {
+      margin-bottom: 0.5rem;
+    }
+    
+    .deadline {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #d9534f;
+      font-weight: bold;
+      margin-bottom: 1.5rem;
+    }
+    
+    .deadline i {
+      font-size: 1.2rem;
+    }
+    
+    .action-buttons {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+    
+    button {
+      padding: 0.8rem 1.5rem;
+      border: none;
+      border-radius: 5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .apply-btn {
+      background-color: var(--primary-color);
+      color: white;
+    }
+    
+    .apply-btn:hover {
+      background-color: var(--secondary-color);
+      transform: translateY(-2px);
+    }
+    
+    .save-btn {
+      background-color: white;
+      color: var(--primary-color);
+      border: 1px solid var(--primary-color);
+    }
+    
+    .save-btn:hover {
+      background-color: var(--light-color);
+      transform: translateY(-2px);
+    }
+    
+    .related-scholarships {
+      margin-top: 3rem;
+    }
+    
+    .related-scholarships h3 {
+      color: var(--primary-color);
+      margin-bottom: 1rem;
+    }
+    
+    .related-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 1rem;
+    }
+    
+    .related-item {
+      background-color: white;
+      border-radius: 8px;
+      padding: 1rem;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+    }
+    
+    .related-item h4 {
+      color: var(--secondary-color);
+      margin-bottom: 0.5rem;
+    }
+    
+    .related-item p {
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .related-item a {
+      color: var(--primary-color);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.9rem;
+    }
+    
+    footer {
+      background-color: var(--dark-color);
+      color: white;
+      text-align: center;
+      padding: 1.5rem;
+      margin-top: 3rem;
+    }
+    
+    @media (max-width: 768px) {
+      .scholarship-header {
+        flex-direction: column;
+        gap: 1rem;
+      }
+      
+      .action-buttons {
+        flex-direction: column;
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+  <header>
+    <h1>Merit-Based Scholarship</h1>
+    <div class="breadcrumb">
+      <a href="#">Home</a> > <a href="#">Scholarships</a> > Merit-Based Scholarship
+    </div>
+  </header>
+  <main>
+    <div class="scholarship-header">
+      <h2>Academic Excellence Award</h2>
+      <div class="scholarship-amount">
+        $5,000 Annual Award
+      </div>
+    </div>
+    
+    <div class="scholarship-content">
+      <p>This prestigious scholarship is awarded to students who demonstrate exceptional academic performance and leadership potential. Recipients will be recognized at the annual Honors Convocation and may be eligible for renewal.</p>
+      
+      <h2>Eligibility Criteria</h2>
+      <ul role="list">
+        <li><i class="fas fa-check-circle" style="color: var(--success-color); margin-right: 0.5rem;"></i> Minimum cumulative GPA of 3.5 on a 4.0 scale</li>
+        <li><i class="fas fa-check-circle" style="color: var(--success-color); margin-right: 0.5rem;"></i> Full-time enrollment in an accredited undergraduate program</li>
+        <li><i class="fas fa-check-circle" style="color: var(--success-color); margin-right: 0.5rem;"></i> Completion of at least 12 credit hours (for continuing students)</li>
+        <li><i class="fas fa-check-circle" style="color: var(--success-color); margin-right: 0.5rem;"></i> Demonstrated leadership in school or community activities</li>
+      </ul>
+      
+      <h2>Application Deadline</h2>
+      <div class="deadline">
+        <i class="fas fa-exclamation-circle"></i>
+        <span>June 30, 2025 (11:59 PM EST)</span>
+      </div>
+      
+      <h2>Documents Required</h2>
+      <ul role="list">
+        <li><i class="fas fa-file-alt" style="margin-right: 0.5rem;"></i> Official academic transcripts</li>
+        <li><i class="fas fa-envelope" style="margin-right: 0.5rem;"></i> Two letters of recommendation (one academic, one personal)</li>
+        <li><i class="fas fa-edit" style="margin-right: 0.5rem;"></i> Personal statement (500-750 words) outlining academic goals and achievements</li>
+        <li><i class="fas fa-list" style="margin-right: 0.5rem;"></i> Resume or CV highlighting extracurricular activities and leadership roles</li>
+      </ul>
+      
+      <h2>Selection Process</h2>
+      <p>Applications will be reviewed by the Scholarship Committee based on academic achievement, leadership qualities, and the quality of the personal statement. Finalists may be invited for a virtual interview. Awards will be announced by August 15, 2025.</p>
+      
+      <div class="action-buttons">
+        <a href="apply.html"> <button class="apply-btn"  aria-label="Apply for Merit-Based Scholarship">
+          <i class="fas fa-paper-plane" style="margin-right: 0.5rem;"></i> Apply Now
+        </button></a>
+        <button class="save-btn" onclick="saveScholarship()" aria-label="Save this scholarship">
+          <i class="fas fa-bookmark" style="margin-right: 0.5rem;"></i> Save for Later
+        </button>
+      </div>
+    </div>
+    
+    <div class="related-scholarships">
+      <h3>Related Scholarships</h3>
+      <div class="related-list">
+        <div class="related-item">
+          <h4>STEM Excellence Scholarship</h4>
+          <p>$3,000 for students in Science, Technology, Engineering, or Math</p>
+          <a href="#">Learn More <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div class="related-item">
+          <h4>Community Service Award</h4>
+          <p>$2,500 for students with significant volunteer experience</p>
+          <a href="#">Learn More <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div class="related-item">
+          <h4>First-Generation Student Grant</h4>
+          <p>$4,000 for first-generation college students</p>
+          <a href="#">Learn More <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+    </div>
+  </main>
+  <footer>
+    <p>&copy; 2025 EDUCourse. All rights reserved.</p>
+  </footer>
+  
+  <script>
+    function applyNow() {
+      // Check if user is logged in
+      const isLoggedIn = confirm("To apply for this scholarship, you need to be logged in. Would you like to log in now?");
+      if (isLoggedIn) {
+        // Redirect to login page
+        window.location.href = "apply.html?redirect=scholarship-application";
+      }
+    }
+    
+    function saveScholarship() {
+      // Check if user is logged in
+      const isLoggedIn = confirm("To save this scholarship, you need to be logged in. Would you like to log in now?");
+      if (isLoggedIn) {
+        // Redirect to login page
+        window.location.href = "login.html?redirect=save-scholarship";
+      }
+    }
+    
+    // Countdown timer for deadline
+    function updateCountdown() {
+      const deadline = new Date("June 30, 2025 23:59:59").getTime();
+      const now = new Date().getTime();
+      const distance = deadline - now;
+      
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      
+      const countdownElement = document.querySelector('.deadline span');
+      if (countdownElement) {
+        countdownElement.textContent = `June 30, 2025 (${days}d ${hours}h remaining)`;
+      }
+    }
+    
+    // Update countdown every hour
+    updateCountdown();
+    setInterval(updateCountdown, 3600000);
+  </script>
+</body>
+</html>
